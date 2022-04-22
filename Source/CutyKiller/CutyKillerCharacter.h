@@ -25,6 +25,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool Attacking = false;
+
 protected:
 
 	/** Called for forwards/backward input */
@@ -50,6 +53,10 @@ protected:
 
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
+
+	void Attack();
+	void Drop();
+	void Interact();
 
 protected:
 	// APawn interface

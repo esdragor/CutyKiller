@@ -60,6 +60,9 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Attack", IE_Released, this, &ACutyKillerCharacter::Attack);
+	PlayerInputComponent->BindAction("Drop", IE_Released, this, &ACutyKillerCharacter::Drop);
+	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ACutyKillerCharacter::Interact);
 
 	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &ACutyKillerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &ACutyKillerCharacter::MoveRight);
@@ -86,6 +89,21 @@ void ACutyKillerCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector L
 {
 	StopJumping();
 }
+
+void ACutyKillerCharacter::Attack()
+{
+	Attacking = true;
+}
+
+void ACutyKillerCharacter::Drop()
+{
+}
+
+void ACutyKillerCharacter::Interact()
+{
+}
+
+
 
 void ACutyKillerCharacter::TurnAtRate(float Rate)
 {
