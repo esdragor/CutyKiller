@@ -47,6 +47,15 @@ ACutyKillerCharacter::ACutyKillerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
+	OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
+	OverlapBox->SetupAttachment(RootComponent, USpringArmComponent::SocketName); 
+
+	OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapBegin);
+	OverlapBox->OnComponentEndOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapEnd);
+
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -80,6 +89,26 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindTouch(IE_Released, this, &ACutyKillerCharacter::TouchStopped);
 }
 
+void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	AWeapon* tmp;
+
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Overlapped");
+	tmp = Cast<AWeapon>(OtherActor);
+	if (tmp) // c'est une weapon
+	{
+		WeaponTmp = tmp;
+		BPShowWidgetEquip(true);
+	}
+}
+
+void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
+	WeaponTmp = nullptr;
+	BPShowWidgetEquip(false);
+}
+
 void ACutyKillerCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	Jump();
@@ -97,10 +126,23 @@ void ACutyKillerCharacter::Attack()
 
 void ACutyKillerCharacter::Drop()
 {
+	BPDropItem();
+	WeaponEquipped = nullptr;
 }
 
 void ACutyKillerCharacter::Interact()
 {
+	if (WeaponTmp)
+	{
+		if (WeaponEquipped)
+		{
+			BPDropItem();
+		}
+		WeaponEquipped = WeaponTmp;
+		WeaponEquipped->Equipped = true;
+		WeaponTmp = nullptr;
+		BPInteract();
+	}
 }
 
 

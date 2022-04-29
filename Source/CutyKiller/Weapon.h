@@ -15,9 +15,22 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Equipped = false;
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+		void BPSnap();
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+		void BPDropWeapon(FVector Location);
+
+	UFUNCTION(BlueprintCallable)
+		void Testuar(FVector Location) {}
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
 
 public:	
 	// Called every frame

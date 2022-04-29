@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <CutyKiller/Weapon.h>
+#include "Components/BoxComponent.h"
 #include "GameFramework/Character.h"
 #include "CutyKillerCharacter.generated.h"
 
@@ -18,6 +20,9 @@ class ACutyKillerCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class UBoxComponent* OverlapBox;
 public:
 	ACutyKillerCharacter();
 
@@ -28,6 +33,24 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool Attacking = false;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		AWeapon *WeaponTmp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		AWeapon* WeaponEquipped;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BPShowWidgetEquip(bool showed);
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPDropItem();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPSetTrap();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPInteract();
+
 protected:
 
 	/** Called for forwards/backward input */
@@ -35,6 +58,7 @@ protected:
 
 	/** Called for side to side input */
 	void MoveRight(float Value);
+
 
 	/** 
 	 * Called via input to turn at a given rate. 
@@ -58,10 +82,21 @@ protected:
 	void Drop();
 	void Interact();
 
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
+
+	  // declare overlap begin function
+	UFUNCTION()
+		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	// declare overlap end function
+	UFUNCTION()
+		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+
 
 public:
 	/** Returns CameraBoom subobject **/
