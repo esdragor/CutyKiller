@@ -6,6 +6,13 @@
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
+UENUM()
+enum StatusObj
+{
+	Trap     UMETA(DisplayName = "Trap"),
+	Weapon      UMETA(DisplayName = "Weapon"),
+};
+
 UCLASS()
 class CUTYKILLER_API AWeapon : public AActor
 {
@@ -18,14 +25,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool Equipped = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Status)
+		TEnumAsByte<StatusObj> status;
+
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 		void BPSnap();
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 		void BPDropWeapon(FVector Location);
 
-	UFUNCTION(BlueprintCallable)
-		void Testuar(FVector Location) {}
 
 protected:
 	// Called when the game starts or when spawned
