@@ -51,6 +51,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPInteract();
 
+	UFUNCTION(BlueprintCallable)
+	void LaunchSnap();
+
 protected:
 
 	/** Called for forwards/backward input */

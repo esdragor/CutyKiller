@@ -50,7 +50,7 @@ ACutyKillerCharacter::ACutyKillerCharacter()
 
 	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
 	OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
-	OverlapBox->SetupAttachment(RootComponent, USpringArmComponent::SocketName); 
+	OverlapBox->SetupAttachment(RootComponent, USpringArmComponent::SocketName);
 
 	OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapBegin);
 	OverlapBox->OnComponentEndOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapEnd);
@@ -93,7 +93,7 @@ void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 {
 	AWeapon* tmp;
 
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Overlapped");
+	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Overlapped");
 	tmp = Cast<AWeapon>(OtherActor);
 	if (tmp) // c'est une weapon
 	{
@@ -104,7 +104,7 @@ void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 
 void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
+	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
 	WeaponTmp = nullptr;
 	BPShowWidgetEquip(false);
 }
@@ -121,7 +121,13 @@ void ACutyKillerCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector L
 
 void ACutyKillerCharacter::Attack()
 {
-	Attacking = true;
+	if (WeaponEquipped && WeaponEquipped->status == StatusObj::Trap) // trap in hand so enclench it
+	{
+		WeaponEquipped->TrapEnclenched = true;
+		BPSetTrap();
+	}
+	else
+		Attacking = true;
 }
 
 void ACutyKillerCharacter::Drop()
@@ -159,6 +165,11 @@ void ACutyKillerCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
 }
 
+void ACutyKillerCharacter::LaunchSnap()
+{
+	WeaponEquipped->BPSnap();
+}
+
 void ACutyKillerCharacter::MoveForward(float Value)
 {
 	if ((Controller != nullptr) && (Value != 0.0f))
@@ -175,12 +186,12 @@ void ACutyKillerCharacter::MoveForward(float Value)
 
 void ACutyKillerCharacter::MoveRight(float Value)
 {
-	if ( (Controller != nullptr) && (Value != 0.0f) )
+	if ((Controller != nullptr) && (Value != 0.0f))
 	{
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
-	
+
 		// get right vector 
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 		// add movement in that direction

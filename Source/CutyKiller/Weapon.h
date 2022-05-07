@@ -17,13 +17,16 @@ UCLASS()
 class CUTYKILLER_API AWeapon : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AWeapon();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool Equipped = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool TrapEnclenched = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Status)
 		TEnumAsByte<StatusObj> status;
@@ -34,13 +37,14 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 		void BPDropWeapon(FVector Location);
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool InUse = false;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
