@@ -51,8 +51,33 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPInteract();
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPDead();
+
 	UFUNCTION(BlueprintCallable)
 	void LaunchSnap();
+
+	UFUNCTION(BlueprintCallable)
+		void TakeAhit(float damage, TEnumAsByte<ConditionOfDeath> reasonOfHit);
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TEnumAsByte<ConditionOfDeath> CondDeath = ConditionOfDeath::None;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		bool isDead = false;
+
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		bool cantMove = false;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		float HealthValue = 100;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		float DefenseValue = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		float AttackValue = 0;
 
 protected:
 

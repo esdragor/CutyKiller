@@ -3,15 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MyEnums.h"
 #include "GameFramework/Actor.h"
 #include "Weapon.generated.h"
 
-UENUM()
-enum StatusObj
-{
-	Trap     UMETA(DisplayName = "Trap"),
-	Weapon      UMETA(DisplayName = "Weapon"),
-};
+
 
 UCLASS()
 class CUTYKILLER_API AWeapon : public AActor

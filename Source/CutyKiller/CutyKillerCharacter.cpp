@@ -170,9 +170,24 @@ void ACutyKillerCharacter::LaunchSnap()
 	WeaponEquipped->BPSnap();
 }
 
+void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ConditionOfDeath> reasonOfHit)
+{
+	if (damage > DefenseValue)
+		HealthValue -= (damage - DefenseValue);
+	else
+		HealthValue -= 1;
+	CondDeath = reasonOfHit;
+	if (HealthValue <= 0)
+	{
+		HealthValue = 0;
+		isDead = true;
+		cantMove = true;
+	}
+}
+
 void ACutyKillerCharacter::MoveForward(float Value)
 {
-	if ((Controller != nullptr) && (Value != 0.0f))
+	if ((Controller != nullptr) && (Value != 0.0f) && !cantMove)
 	{
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -186,7 +201,7 @@ void ACutyKillerCharacter::MoveForward(float Value)
 
 void ACutyKillerCharacter::MoveRight(float Value)
 {
-	if ((Controller != nullptr) && (Value != 0.0f))
+	if ((Controller != nullptr) && (Value != 0.0f) && !cantMove)
 	{
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
