@@ -36,8 +36,12 @@
 			"Enabled": true
 		},
 		{
-			"Name": "ChaosCaching",
-			"Enabled": true
+			"Name": "ChaosClothEditor",
+			"Enabled": false
+		},
+		{
+			"Name": "ChaosCloth",
+			"Enabled": false
 		}
 	]
 }
