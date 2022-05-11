@@ -18,5 +18,8 @@ class CUTYKILLER_API UMyAnimInstance : public UAnimInstance
 
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TEnumAsByte<ConditionOfDeath> CondDeath = ConditionOfDeath::None;
+		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		TEnumAsByte<ObjAttack> ObjectAttack = ObjAttack::None;
 };

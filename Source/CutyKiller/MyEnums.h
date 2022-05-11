@@ -6,20 +6,13 @@
 #include "UObject/NoExportTypes.h"
 #include "MyEnums.generated.h"
 
-UENUM()
-enum StatusObj
-{
-	Trap     UMETA(DisplayName = "Trap"),
-	Weapon      UMETA(DisplayName = "Weapon"),
-};
-
 UENUM(BlueprintType)
-enum ConditionOfDeath
+enum ObjAttack
 {
 	None     UMETA(DisplayName = "None"),
 	Sword      UMETA(DisplayName = "Sword"),
 	Hand      UMETA(DisplayName = "Hand"),
-	Explosion      UMETA(DisplayName = "Explosion"),
+	TrapExplosion      UMETA(DisplayName = "TrapExplosion"),
 };
 
 UCLASS()

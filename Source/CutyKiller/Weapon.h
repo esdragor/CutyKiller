@@ -25,7 +25,7 @@ public:
 		bool TrapEnclenched = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Status)
-		TEnumAsByte<StatusObj> status;
+		TEnumAsByte<ObjAttack> status;
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 		void BPSnap();

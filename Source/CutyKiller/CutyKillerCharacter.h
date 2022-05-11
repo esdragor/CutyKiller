@@ -30,7 +30,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool Attacking = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -49,6 +49,9 @@ public:
 		void BPSetTrap();
 
 	UFUNCTION(BlueprintImplementableEvent)
+		void BPAttacking();
+
+	UFUNCTION(BlueprintImplementableEvent)
 		void BPInteract();
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -58,10 +61,10 @@ public:
 	void LaunchSnap();
 
 	UFUNCTION(BlueprintCallable)
-		void TakeAhit(float damage, TEnumAsByte<ConditionOfDeath> reasonOfHit);
+		void TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit);
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		TEnumAsByte<ConditionOfDeath> CondDeath = ConditionOfDeath::None;
+		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		bool isDead = false;
@@ -78,6 +81,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		float AttackValue = 0;
+
 
 protected:
 
@@ -111,7 +115,6 @@ protected:
 	void Interact();
 
 
-protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
@@ -124,6 +127,7 @@ protected:
 	UFUNCTION()
 		void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	bool Invulnerability = false;
 
 
 public:

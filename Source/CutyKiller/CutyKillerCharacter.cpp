@@ -121,13 +121,16 @@ void ACutyKillerCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector L
 
 void ACutyKillerCharacter::Attack()
 {
-	if (WeaponEquipped && WeaponEquipped->status == StatusObj::Trap) // trap in hand so enclench it
+	if (WeaponEquipped && WeaponEquipped->status == ObjAttack::TrapExplosion) // trap in hand so enclench it
 	{
 		WeaponEquipped->TrapEnclenched = true;
 		BPSetTrap();
 	}
 	else
+	{
 		Attacking = true;
+		BPAttacking();
+	}
 }
 
 void ACutyKillerCharacter::Drop()
@@ -170,19 +173,30 @@ void ACutyKillerCharacter::LaunchSnap()
 	WeaponEquipped->BPSnap();
 }
 
-void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ConditionOfDeath> reasonOfHit)
+void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit)
 {
-	if (damage > DefenseValue)
-		HealthValue -= (damage - DefenseValue);
-	else
-		HealthValue -= 1;
-	CondDeath = reasonOfHit;
-	if (HealthValue <= 0)
+	if (!Invulnerability)
 	{
-		HealthValue = 0;
-		isDead = true;
-		cantMove = true;
+		FTimerHandle UnusedHandle;
+		Invulnerability = true;
+		GetWorld()->GetTimerManager().SetTimer(UnusedHandle, [&]()
+		{
+			Invulnerability = false;
+		}, 1, false);
+
+		if (damage > DefenseValue)
+			HealthValue -= (damage - DefenseValue);
+		else
+			HealthValue -= 1;
+		CondDeath = reasonOfHit;
+		if (HealthValue <= 0)
+		{
+			HealthValue = 0;
+			isDead = true;
+			cantMove = true;
+		}
 	}
+
 }
 
 void ACutyKillerCharacter::MoveForward(float Value)
