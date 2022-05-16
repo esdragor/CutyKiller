@@ -4,6 +4,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
+#include "Math/Vector.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -135,6 +136,8 @@ void ACutyKillerCharacter::Attack()
 
 void ACutyKillerCharacter::Drop()
 {
+	if (WeaponEquipped)
+		AttackValue -= WeaponEquipped->AttackValue;
 	BPDropItem();
 	WeaponEquipped = nullptr;
 }
@@ -150,6 +153,7 @@ void ACutyKillerCharacter::Interact()
 		WeaponEquipped = WeaponTmp;
 		WeaponEquipped->Equipped = true;
 		WeaponTmp = nullptr;
+		AttackValue += WeaponEquipped->AttackValue;
 		BPInteract();
 	}
 }
@@ -173,7 +177,7 @@ void ACutyKillerCharacter::LaunchSnap()
 	WeaponEquipped->BPSnap();
 }
 
-void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit)
+void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker)
 {
 	if (!Invulnerability)
 	{
@@ -194,6 +198,15 @@ void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonO
 			HealthValue = 0;
 			isDead = true;
 			cantMove = true;
+			BPDead();
+		}
+		else
+		{
+			if (FVector::DotProduct(attacker->GetActorLocation(), GetActorLocation()) >= 0.0f)
+				EnemyInFront = true;
+			else
+				EnemyInFront = false;
+			BPTakeHit();
 		}
 	}
 

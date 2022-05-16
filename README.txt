@@ -6,11 +6,11 @@ possibilite Twitch Integration
 2) deplacement personnage FAIT
 3) recolter une arme  FAIT
 3.1) equiper une arme  FAIT
-4) se battre avec une arme
-5) poser pieges
-6) apparition enemi
-7) deplacement ennemi
-8) on peut tuer un ennemi
+4) se battre avec une arme FAIT
+5) poser pieges FAIT
+6) apparition enemi FAIT
+7) deplacement ennemi FAIT
+8) on peut tuer un ennemi FAIT
 9) "patrouille" des IA (ils ont des taches a faire et ils se balladent pour faire ca)
 10) kill environnementale
 11) on peut les agripper pour les tuer autre part ou sur un objet
@@ -19,3 +19,6 @@ possibilite Twitch Integration
 14) les ennemi ont une jauge de stress
 15) les ennemi peuvent se suicider
 16) objectif de mission
+17) UI Sante
+18) Selection Monde
+19) options

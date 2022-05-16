@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool TrapEnclenched = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float AttackValue = 1.0f;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Status)
 		TEnumAsByte<ObjAttack> status;
 
