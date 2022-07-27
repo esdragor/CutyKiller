@@ -1,6 +1,6 @@
-C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Module.AdvancedSessions.cpp
+C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Module.AdvancedSessions.cpp
 /I .
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Private
+/I C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Private
 /I ..\Plugins\Online\OnlineSubsystem\Intermediate\Build\Win64\UnrealGame\Inc\OnlineSubsystem
 /I ..\Plugins\Online\OnlineSubsystem
 /I ..\Plugins\Online\OnlineSubsystem\Source
@@ -109,9 +109,9 @@ C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSess
 /I Runtime\TypedElementFramework\Public
 /I ..\Intermediate\Build\Win64\UnrealGame\Inc\TypedElementRuntime
 /I Runtime\TypedElementRuntime\Public
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Inc\AdvancedSessions
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Source
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Classes
+/I C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Inc\AdvancedSessions
+/I C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Source
+/I C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Classes
 /I ThirdParty\mimalloc\include
 /I ThirdParty\LibTiff\Source\Win64
 /I ThirdParty\LibTiff\Source
@@ -121,12 +121,12 @@ C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSess
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
-/FI"C:\Users\baudo\Documents\GitHub\CutyKiller\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/FI"C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Definitions.AdvancedSessions.h"
-/Yu"C:\Users\baudo\Documents\GitHub\CutyKiller\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Fp"C:\Users\baudo\Documents\GitHub\CutyKiller\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
-/Fo"C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Module.AdvancedSessions.cpp.obj"
-/sourceDependencies C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Module.AdvancedSessions.cpp.json
+/FI"C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/FI"C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Definitions.AdvancedSessions.h"
+/Yu"C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Fp"C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
+/Fo"C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Module.AdvancedSessions.cpp.obj"
+/sourceDependencies C:\Users\baudo\Documents\GitHub\CutyKillerTEST\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSessions\Module.AdvancedSessions.cpp.json
 /Zc:inline
 /nologo
 /Oi
