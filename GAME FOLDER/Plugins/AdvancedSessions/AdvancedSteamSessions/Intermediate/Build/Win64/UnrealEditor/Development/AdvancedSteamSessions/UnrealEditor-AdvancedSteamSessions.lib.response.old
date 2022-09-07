@@ -6,8 +6,8 @@
 /NAME:"UnrealEditor-AdvancedSteamSessions.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"..\Intermediate\Build\Win64\UnrealEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER 5.0\Intermediate\Build\Win64\CutyKillerEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
 "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER 5.0\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealEditor\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.cpp.obj"
 "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER 5.0\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealEditor\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp.obj"
-"..\Intermediate\Build\Win64\UnrealEditor\Development\Default.rc2.res"
+"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER 5.0\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealEditor\Development\AdvancedSteamSessions\Default.rc2.res"
 /OUT:"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER 5.0\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealEditor\Development\AdvancedSteamSessions\UnrealEditor-AdvancedSteamSessions.lib"
