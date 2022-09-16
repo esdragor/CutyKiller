@@ -15,6 +15,15 @@ enum ObjAttack
 	TrapExplosion      UMETA(DisplayName = "TrapExplosion"),
 };
 
+
+UENUM(BlueprintType)
+enum RolesOfPlayer
+{
+	RoleNotAssigned     UMETA(DisplayName = "RoleNotAssigned"),
+	GoodGuy      UMETA(DisplayName = "GoodGuy"),
+	Killer      UMETA(DisplayName = "Killer"),
+};
+
 UCLASS()
 class CUTYKILLER_API UMyEnums : public UObject
 {

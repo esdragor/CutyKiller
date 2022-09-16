@@ -8,18 +8,18 @@
 #include "GameFramework/Character.h"
 #include "CutyKillerCharacter.generated.h"
 
-UCLASS(config=Game)
+UCLASS(config = Game)
 class ACutyKillerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+		/** Camera boom positioning the camera behind the character */
+		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
+		class UCameraComponent* FollowCamera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UBoxComponent* OverlapBox;
@@ -27,20 +27,20 @@ public:
 	ACutyKillerCharacter();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
-	float TurnRateGamepad;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input)
+		float TurnRateGamepad;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	bool Attacking = false;
+		bool Attacking = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		AWeapon *WeaponTmp;
+		AWeapon* WeaponTmp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		AWeapon* WeaponEquipped;
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void BPShowWidgetEquip(bool showed);
+		void BPShowWidgetEquip(bool showed);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPDropItem();
@@ -61,10 +61,16 @@ public:
 		void BPTakeHit();
 
 	UFUNCTION(BlueprintCallable)
-	void LaunchSnap();
+		void LaunchSnap();
 
 	UFUNCTION(BlueprintCallable)
-		void TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor * attacker);
+		void AssignRole();
+
+	UFUNCTION(BlueprintCallable)
+		FString GetRole();
+
+	UFUNCTION(BlueprintCallable)
+		void TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker);
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
@@ -99,14 +105,16 @@ protected:
 	void MoveRight(float Value);
 
 
-	/** 
-	 * Called via input to turn at a given rate. 
+	RolesOfPlayer roleofcharacter = RolesOfPlayer::RoleNotAssigned;
+
+	/**
+	 * Called via input to turn at a given rate.
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
 	void TurnAtRate(float Rate);
 
 	/**
-	 * Called via input to turn look up/down at a given rate. 
+	 * Called via input to turn look up/down at a given rate.
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
 	void LookUpAtRate(float Rate);

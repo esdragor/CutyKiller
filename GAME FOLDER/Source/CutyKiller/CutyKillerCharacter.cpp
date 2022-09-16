@@ -7,6 +7,7 @@
 #include "Math/Vector.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "MyEnums.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -175,6 +176,18 @@ void ACutyKillerCharacter::LookUpAtRate(float Rate)
 void ACutyKillerCharacter::LaunchSnap()
 {
 	WeaponEquipped->BPSnap();
+}
+
+void ACutyKillerCharacter::AssignRole()
+{
+	roleofcharacter = RolesOfPlayer::GoodGuy;
+}
+
+FString ACutyKillerCharacter::GetRole()
+{
+	if (roleofcharacter == RolesOfPlayer::GoodGuy)
+		return ("Cuty Animal");
+	return FString("ERRRRRROOOOOORRRRRR");
 }
 
 void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker)
