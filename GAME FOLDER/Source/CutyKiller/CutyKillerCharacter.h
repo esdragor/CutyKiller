@@ -64,7 +64,10 @@ public:
 		void LaunchSnap();
 
 	UFUNCTION(BlueprintCallable)
-		void AssignRole();
+		void AssignRole(RolesOfPlayer _role);
+
+	UFUNCTION(BlueprintCallable)
+		bool IsRoleAssigned() { return roleofcharacter != RolesOfPlayer::RoleNotAssigned; };
 
 	UFUNCTION(BlueprintCallable)
 		FString GetRole();

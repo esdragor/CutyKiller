@@ -178,15 +178,17 @@ void ACutyKillerCharacter::LaunchSnap()
 	WeaponEquipped->BPSnap();
 }
 
-void ACutyKillerCharacter::AssignRole()
+void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 {
-	roleofcharacter = RolesOfPlayer::GoodGuy;
+	roleofcharacter = _role;
 }
 
 FString ACutyKillerCharacter::GetRole()
 {
 	if (roleofcharacter == RolesOfPlayer::GoodGuy)
 		return ("Cuty Animal");
+	else if (roleofcharacter == RolesOfPlayer::Killer)
+		return ("KILLER !!!!!!!");
 	return FString("ERRRRRROOOOOORRRRRR");
 }
 
