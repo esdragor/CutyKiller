@@ -24,9 +24,21 @@ enum RolesOfPlayer
 	Killer      UMETA(DisplayName = "Killer"),
 };
 
+USTRUCT(BlueprintType)
+struct FInfoRole
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Role of player")
+	FString role;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color of role")
+	FColor color;
+
+};
+
 UCLASS()
 class CUTYKILLER_API UMyEnums : public UObject
 {
 	GENERATED_BODY()
-	
+
 };

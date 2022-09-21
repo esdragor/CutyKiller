@@ -181,15 +181,28 @@ void ACutyKillerCharacter::LaunchSnap()
 void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 {
 	roleofcharacter = _role;
+	BPPrintRolesOnScreen();
 }
 
-FString ACutyKillerCharacter::GetRole()
+FInfoRole ACutyKillerCharacter::GetRole()
 {
+	FInfoRole Inforole;
 	if (roleofcharacter == RolesOfPlayer::GoodGuy)
-		return ("Cuty Animal");
+	{
+		Inforole.role = "Cuty Animal";
+		Inforole.color = FColor::Green;
+	}
 	else if (roleofcharacter == RolesOfPlayer::Killer)
-		return ("KILLER !!!!!!!");
-	return FString("ERRRRRROOOOOORRRRRR");
+	{
+		Inforole.role = "Killer";
+		Inforole.color = FColor::Red;
+	}
+	else
+	{
+		Inforole.role = "ERROR";
+		Inforole.color = FColor::Red;
+	}
+	return Inforole;
 }
 
 void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker)

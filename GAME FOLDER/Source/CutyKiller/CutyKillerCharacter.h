@@ -60,6 +60,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPTakeHit();
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPPrintRolesOnScreen();
+
 	UFUNCTION(BlueprintCallable)
 		void LaunchSnap();
 
@@ -70,7 +73,7 @@ public:
 		bool IsRoleAssigned() { return roleofcharacter != RolesOfPlayer::RoleNotAssigned; };
 
 	UFUNCTION(BlueprintCallable)
-		FString GetRole();
+		FInfoRole GetRole();
 
 	UFUNCTION(BlueprintCallable)
 		void TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker);
