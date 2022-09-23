@@ -1,6 +1,6 @@
-C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp
+"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp"
 /I .
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Source\AdvancedSteamSessions\Private
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Source\AdvancedSteamSessions\Private"
 /I ..\Plugins\Online\OnlineSubsystem\Intermediate\Build\Win64\UnrealGame\Inc\OnlineSubsystem
 /I ..\Plugins\Online\OnlineSubsystem
 /I ..\Plugins\Online\OnlineSubsystem\Source
@@ -109,13 +109,13 @@ C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedStea
 /I Runtime\TypedElementFramework\Public
 /I ..\Intermediate\Build\Win64\UnrealGame\Inc\TypedElementRuntime
 /I Runtime\TypedElementRuntime\Public
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Inc\AdvancedSteamSessions
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Source
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Inc\AdvancedSteamSessions"
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Source"
 /I ..\Plugins\Online\OnlineSubsystemSteam\Source\Private
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Source\AdvancedSteamSessions\Classes
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Inc\AdvancedSessions
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Source
-/I C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Classes
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Source\AdvancedSteamSessions\Classes"
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSessions\Intermediate\Build\Win64\UnrealGame\Inc\AdvancedSessions"
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSessions\Source"
+/I "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSessions\Source\AdvancedSessions\Classes"
 /I ThirdParty\Steamworks\Steamv151\sdk\public
 /I ..\Plugins\Online\OnlineSubsystemSteam\Intermediate\Build\Win64\UnrealGame\Inc\OnlineSubsystemSteam
 /I ..\Plugins\Online\OnlineSubsystemSteam
@@ -130,12 +130,12 @@ C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedStea
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
-/FI"C:\Users\baudo\Documents\GitHub\CutyKiller\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/FI"C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Definitions.AdvancedSteamSessions.h"
-/Yu"C:\Users\baudo\Documents\GitHub\CutyKiller\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Fp"C:\Users\baudo\Documents\GitHub\CutyKiller\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
-/Fo"C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp.obj"
-/sourceDependencies C:\Users\baudo\Documents\GitHub\CutyKiller\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp.json
+/FI"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/FI"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Definitions.AdvancedSteamSessions.h"
+/Yu"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Fp"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Intermediate\Build\Win64\CutyKiller\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
+/Fo"C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp.obj"
+/sourceDependencies "C:\Users\baudo\Documents\GitHub\CutyKiller\GAME FOLDER\Plugins\AdvancedSessions\AdvancedSteamSessions\Intermediate\Build\Win64\UnrealGame\Development\AdvancedSteamSessions\Module.AdvancedSteamSessions.gen.cpp.json"
 /Zc:inline
 /nologo
 /Oi
