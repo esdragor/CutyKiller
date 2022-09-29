@@ -20,4 +20,10 @@ public:
 
 		UFUNCTION(BlueprintCallable)
 			void CopyValueToClip(FString quote);
+
+		UFUNCTION(BlueprintCallable)
+			void LaunchAndSaveValueFromLobby(FText NbKiller, float SpeedCycleDayNight);
+
+		UFUNCTION(BlueprintCallable)
+			bool ValidNbOfKiller(int NbPlayers, FText NbKiller);
 };

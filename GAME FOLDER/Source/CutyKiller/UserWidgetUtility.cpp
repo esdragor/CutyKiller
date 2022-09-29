@@ -4,6 +4,7 @@
 #include "UserWidgetUtility.h"
 #include "Math/UnrealMathUtility.h"
 #include "GenericPlatform/GenericPlatformMisc.h"
+#include "GameInstanceUtility.h"
 
 
 FString UUserWidgetUtility::GenerateCodeParty()
@@ -21,4 +22,18 @@ FString UUserWidgetUtility::GenerateCodeParty()
 void UUserWidgetUtility::CopyValueToClip(FString quote)
 {
 	FGenericPlatformMisc::ClipboardCopy(quote.GetCharArray().GetData());
+}
+
+void UUserWidgetUtility::LaunchAndSaveValueFromLobby(FText NbKiller, float SpeedCycleDayNight)
+{
+	UGameInstanceUtility* instance = Cast<UGameInstanceUtility>(GetGameInstance());
+
+	instance->SpeedCycleDayNight = SpeedCycleDayNight;
+	instance->NbKIllersToCreate = FCString::Atoi(*NbKiller.ToString());
+}
+
+bool UUserWidgetUtility::ValidNbOfKiller(int NbPlayers, FText NbKiller)
+{
+	int nb = FCString::Atoi(*NbKiller.ToString());
+	return !((NbPlayers <= nb && NbPlayers > 1) || (nb <= 0 && NbPlayers > 1));
 }
