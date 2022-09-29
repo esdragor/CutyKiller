@@ -17,4 +17,7 @@ class CUTYKILLER_API UUserWidgetUtility : public UUserWidget
 public:
 		UFUNCTION(BlueprintCallable)
 		FString GenerateCodeParty();
+
+		UFUNCTION(BlueprintCallable)
+			void CopyValueToClip(FString quote);
 };

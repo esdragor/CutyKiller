@@ -123,7 +123,7 @@ void ACutyKillerCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector L
 
 void ACutyKillerCharacter::Attack()
 {
-	if (WeaponEquipped && WeaponEquipped->status == ObjAttack::TrapExplosion) // trap in hand so enclench it
+	if (WeaponEquipped && WeaponEquipped->status == ObjAttack::TrapExplosion && !cantMove) // trap in hand so enclench it
 	{
 		WeaponEquipped->TrapEnclenched = true;
 		BPSetTrap();

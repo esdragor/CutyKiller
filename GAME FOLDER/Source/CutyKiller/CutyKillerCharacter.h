@@ -85,7 +85,7 @@ public:
 		bool isDead = false;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		bool cantMove = false;
+		bool cantMove = true;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		bool EnemyInFront = false;

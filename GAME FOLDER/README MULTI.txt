@@ -10,4 +10,4 @@ les ennemis peuvent ramasser des armes pour tuer
 les ennemis peuvent grab les gentils pour lezs tuer en kill environnementale
 un gentil mort en kill environnementale disparait
 un gentil mort par une arme laisse un cadavre et sa mort genere du bruit
-systeme de trait de RACE !!!! 
+systeme de trait de RACE !!!! avec chiens, chats....

@@ -3,6 +3,8 @@
 
 #include "UserWidgetUtility.h"
 #include "Math/UnrealMathUtility.h"
+#include "GenericPlatform/GenericPlatformMisc.h"
+
 
 FString UUserWidgetUtility::GenerateCodeParty()
 {
@@ -14,4 +16,9 @@ FString UUserWidgetUtility::GenerateCodeParty()
 		NewCode.InsertAt(i, AllKeys[FMath::RandRange(0, AllKeys.Len() - 1)]);
 	}
 	return NewCode;
+}
+
+void UUserWidgetUtility::CopyValueToClip(FString quote)
+{
+	FGenericPlatformMisc::ClipboardCopy(quote.GetCharArray().GetData());
 }
