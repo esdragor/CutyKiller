@@ -24,6 +24,14 @@ enum RolesOfPlayer
 	Killer      UMETA(DisplayName = "Killer"),
 };
 
+UENUM(BlueprintType)
+enum RolesFunction
+{
+	FunctionNotAssigned     UMETA(DisplayName = "FunctionNotAssigned"),
+	Good      UMETA(DisplayName = "Good"),
+	Naughty      UMETA(DisplayName = "Naughty"),
+};
+
 USTRUCT(BlueprintType)
 struct FInfoRole
 {
@@ -33,7 +41,8 @@ struct FInfoRole
 	FString role;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color of role")
 	FColor color;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Type Of Roles")
+		TEnumAsByte<RolesFunction> typeOfRoles;
 };
 
 UCLASS()

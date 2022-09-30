@@ -26,19 +26,6 @@ class ACutyKillerCharacter : public ACharacter
 public:
 	ACutyKillerCharacter();
 
-	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Input)
-		float TurnRateGamepad;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-		bool Attacking = false;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		AWeapon* WeaponTmp;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-		AWeapon* WeaponEquipped;
-
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPShowWidgetEquip(bool showed);
 
@@ -73,7 +60,7 @@ public:
 		bool IsRoleAssigned() { return roleofcharacter != RolesOfPlayer::RoleNotAssigned; };
 
 	UFUNCTION(BlueprintCallable)
-		FInfoRole GetRole();
+		FInfoRole GetRoleParameters();
 
 	UFUNCTION(BlueprintCallable)
 		void TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker);
@@ -81,26 +68,38 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		bool isDead = false;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		bool cantMove = true;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		bool EnemyInFront = false;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		float HealthValue = 100;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		float DefenseValue = 0;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-		float AttackValue = 10.f;
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
+		float AttackValue = 40.f;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		bool Hit = false;
+
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = Input)
+		float TurnRateGamepad;
+
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadWrite)
+		bool Attacking = false;
+
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
+		AWeapon* WeaponTmp;
+
+	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
+		AWeapon* WeaponEquipped;
 
 protected:
 
@@ -134,7 +133,7 @@ protected:
 	void Attack();
 	void Drop();
 	void Interact();
-
+	float CalcDamage(ObjAttack reasonOfHit);
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

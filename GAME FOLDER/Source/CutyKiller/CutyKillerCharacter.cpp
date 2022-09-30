@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "MyEnums.h"
+#include "FunctionUtility.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,22 +94,29 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 
 void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	AWeapon* tmp;
+	if (IsLocallyControlled())
+	{
+		AWeapon* tmp;
+		tmp = Cast<AWeapon>(OtherActor);
+		if (tmp && !tmp->Equipped) // c'est une weapon
+		{
+			WeaponTmp = tmp;
+			BPShowWidgetEquip(true);
+		}
+	}
 
 	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Overlapped");
-	tmp = Cast<AWeapon>(OtherActor);
-	if (tmp) // c'est une weapon
-	{
-		WeaponTmp = tmp;
-		BPShowWidgetEquip(true);
-	}
+
 }
 
 void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	if (IsLocallyControlled())
+	{
 	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
 	WeaponTmp = nullptr;
 	BPShowWidgetEquip(false);
+	}
 }
 
 void ACutyKillerCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
@@ -123,15 +131,25 @@ void ACutyKillerCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector L
 
 void ACutyKillerCharacter::Attack()
 {
-	if (WeaponEquipped && WeaponEquipped->status == ObjAttack::TrapExplosion && !cantMove) // trap in hand so enclench it
+	if (!cantMove && GetRoleParameters().typeOfRoles.GetValue() == Naughty)
 	{
-		WeaponEquipped->TrapEnclenched = true;
-		BPSetTrap();
-	}
-	else
-	{
-		Attacking = true;
-		BPAttacking();
+		if (WeaponEquipped && WeaponEquipped->status == ObjAttack::TrapExplosion) // trap in hand so enclench it
+		{
+			WeaponEquipped->TrapEnclenched = true;
+			BPSetTrap();
+		}
+		else if (!WeaponEquipped) // HandPunch
+		{
+			//Attacking = true;
+			//BPAttacking();
+			GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Coup de point Non gerer !!!!!");
+		}
+		else
+		{
+			Attacking = true;
+			DelayCPPValue(0.2f, Attacking, false); // local
+			BPAttacking();
+		}
 	}
 }
 
@@ -145,6 +163,7 @@ void ACutyKillerCharacter::Drop()
 
 void ACutyKillerCharacter::Interact()
 {
+
 	if (WeaponTmp)
 	{
 		if (WeaponEquipped)
@@ -184,23 +203,29 @@ void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 	BPPrintRolesOnScreen();
 }
 
-FInfoRole ACutyKillerCharacter::GetRole()
+FInfoRole ACutyKillerCharacter::GetRoleParameters()
 {
 	FInfoRole Inforole;
-	if (roleofcharacter == RolesOfPlayer::GoodGuy)
+
+	switch (roleofcharacter)
 	{
-		Inforole.role = "Cuty Animal";
-		Inforole.color = FColor::Green;
-	}
-	else if (roleofcharacter == RolesOfPlayer::Killer)
-	{
+	case RoleNotAssigned:
 		Inforole.role = "Killer";
 		Inforole.color = FColor::Red;
-	}
-	else
-	{
-		Inforole.role = "ERROR";
+		Inforole.typeOfRoles = Naughty;
+		break;
+	case GoodGuy:
+		Inforole.role = "Cuty Animal";
+		Inforole.color = FColor::Green;
+		Inforole.typeOfRoles = Good;
+		break;
+	case Killer:
+		Inforole.role = "Killer";
 		Inforole.color = FColor::Red;
+		Inforole.typeOfRoles = Naughty;
+		break;
+	default:
+		break;
 	}
 	return Inforole;
 }
@@ -212,9 +237,9 @@ void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonO
 		FTimerHandle UnusedHandle;
 		Invulnerability = true;
 		GetWorld()->GetTimerManager().SetTimer(UnusedHandle, [&]()
-		{
-			Invulnerability = false;
-		}, 1, false);
+			{
+				Invulnerability = false;
+			}, 1, false);
 
 		if (damage > DefenseValue)
 			HealthValue -= (damage - DefenseValue);
@@ -267,4 +292,11 @@ void ACutyKillerCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void ACutyKillerCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const {
+
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+
 }

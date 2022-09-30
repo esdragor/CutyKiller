@@ -18,17 +18,20 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 		bool Equipped = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 		bool TrapEnclenched = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
 		float AttackValue = 1.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Status)
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = Status)
 		TEnumAsByte<ObjAttack> status;
+
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite)
+		bool InUse = false;
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 		void BPSnap();
@@ -36,8 +39,6 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 		void BPDropWeapon(FVector Location);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool InUse = false;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
