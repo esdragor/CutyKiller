@@ -57,6 +57,9 @@ public:
 		void AssignRole(RolesOfPlayer _role);
 
 	UFUNCTION(BlueprintCallable)
+		void SetWeaponEquip(AWeapon *weap);
+
+	UFUNCTION(BlueprintCallable)
 		bool IsRoleAssigned() { return roleofcharacter != RolesOfPlayer::RoleNotAssigned; };
 
 	UFUNCTION(BlueprintCallable)

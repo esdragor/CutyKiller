@@ -203,6 +203,11 @@ void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 	BPPrintRolesOnScreen();
 }
 
+void ACutyKillerCharacter::SetWeaponEquip(AWeapon* weap)
+{
+	WeaponEquipped = weap;
+}
+
 FInfoRole ACutyKillerCharacter::GetRoleParameters()
 {
 	FInfoRole Inforole;
