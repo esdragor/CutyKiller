@@ -208,6 +208,12 @@ void ACutyKillerCharacter::SetWeaponEquip(AWeapon* weap)
 	WeaponEquipped = weap;
 }
 
+void ACutyKillerCharacter::SetDeathStatus(bool _cantMove, bool _ISdead)
+{
+	cantMove = _cantMove;
+	isDead = _ISdead;
+}
+
 FInfoRole ACutyKillerCharacter::GetRoleParameters()
 {
 	FInfoRole Inforole;

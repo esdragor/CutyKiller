@@ -59,6 +59,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void SetWeaponEquip(AWeapon *weap);
 
+		UFUNCTION(BlueprintCallable)
+		void SetDeathStatus(bool _cantMove, bool _ISdead);
+
 	UFUNCTION(BlueprintCallable)
 		bool IsRoleAssigned() { return roleofcharacter != RolesOfPlayer::RoleNotAssigned; };
 
