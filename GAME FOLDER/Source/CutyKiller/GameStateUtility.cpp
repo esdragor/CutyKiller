@@ -2,18 +2,39 @@
 
 
 #include "GameStateUtility.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "CutyKillerCharacter.h"
+#include "FunctionUtility.h"
 
-bool AGameStateUtility::CheckDayNight(AActor *light)
+void AGameStateUtility::CheckDayNight(AActor* light)
 {
-	if (!Night && light->GetActorTransform().GetRotation().Y > -0.1f)
+	if (light->GetActorTransform().GetRotation().Y > 0.01f)
+	{
+		SecondDay = true;
+	}
+	else if (light->GetActorTransform().GetRotation().Y < -0.01f && Day && SecondDay)
 	{
 		Night = true;
 		Day = false;
+		SecondDay = false;
+
+		TArray< AActor*> OutActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACutyKillerCharacter::StaticClass(), OutActors);
+		for (int i = 0; i < OutActors.Num(); i++)
+		{
+			Cast<ACutyKillerCharacter>(OutActors[i])->SwitchDayNight(Night);
+		}
 	}
-	else if (!Day && light->GetActorTransform().GetRotation().Y < 0.1f)
+	else if (Night && light->GetActorTransform().GetRotation().Y < -0.9999f)
 	{
 		Night = false;
 		Day = true;
+
+		TArray< AActor*> OutActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACutyKillerCharacter::StaticClass(), OutActors);
+		for (int i = 0; i < OutActors.Num(); i++)
+		{
+			Cast<ACutyKillerCharacter>(OutActors[i])->SwitchDayNight(Night);
+		}
 	}
-	return true;
 }

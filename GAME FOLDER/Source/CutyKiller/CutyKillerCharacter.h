@@ -53,6 +53,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPPrintRolesOnScreen();
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void SwitchDayNight(bool IsNight);
+
 	UFUNCTION(BlueprintCallable)
 		void LaunchSnap();
 

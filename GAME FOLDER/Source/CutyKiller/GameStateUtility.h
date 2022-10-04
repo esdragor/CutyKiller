@@ -19,8 +19,9 @@ public:
 	bool Night = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool Day = false;
+	bool SecondDay = false;
 
 	UFUNCTION(BlueprintCallable)
-	bool CheckDayNight(AActor *light);
+	void CheckDayNight(AActor *light);
 
 };
