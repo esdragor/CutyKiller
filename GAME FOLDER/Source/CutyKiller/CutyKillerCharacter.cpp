@@ -7,6 +7,7 @@
 #include "Math/Vector.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "Components/LightComponent.h"
 #include "MyEnums.h"
 #include "FunctionUtility.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -75,6 +76,7 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAction("Attack", IE_Released, this, &ACutyKillerCharacter::Attack);
 	PlayerInputComponent->BindAction("Drop", IE_Released, this, &ACutyKillerCharacter::Drop);
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ACutyKillerCharacter::Interact);
+	PlayerInputComponent->BindAction("Power", IE_Released, this, &ACutyKillerCharacter::Power);
 
 	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &ACutyKillerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &ACutyKillerCharacter::MoveRight);
@@ -113,9 +115,9 @@ void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AAc
 {
 	if (IsLocallyControlled())
 	{
-	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
-	WeaponTmp = nullptr;
-	BPShowWidgetEquip(false);
+		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
+		WeaponTmp = nullptr;
+		BPShowWidgetEquip(false);
 	}
 }
 
@@ -178,6 +180,10 @@ void ACutyKillerCharacter::Interact()
 	}
 }
 
+void ACutyKillerCharacter::Power()
+{
+	BPPower();
+}
 
 
 void ACutyKillerCharacter::TurnAtRate(float Rate)
@@ -221,9 +227,9 @@ FInfoRole ACutyKillerCharacter::GetRoleParameters()
 	switch (roleofcharacter)
 	{
 	case RoleNotAssigned:
-		Inforole.role = "Killer";
+		Inforole.role = "Error";
 		Inforole.color = FColor::Red;
-		Inforole.typeOfRoles = Naughty;
+		Inforole.typeOfRoles = Good;
 		break;
 	case GoodGuy:
 		Inforole.role = "Cuty Animal";
@@ -274,6 +280,25 @@ void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonO
 		}
 	}
 
+}
+
+void ACutyKillerCharacter::InitCamPostProcess(FPostProcessSettings good, FPostProcessSettings evil)
+{
+	if (GetRoleParameters().typeOfRoles == Good)
+		FollowCamera->PostProcessSettings = good;
+	else
+		FollowCamera->PostProcessSettings = evil;
+	FollowCamera->PostProcessBlendWeight = 0.0f;
+}
+
+void ACutyKillerCharacter::SwitchLights(ULightComponent *OnEnable, ULightComponent *OnDisable)
+{
+	OnDisable->SetVisibility(false, true);
+
+	if (GetRoleParameters().typeOfRoles == Killer)
+	OnEnable->SetVisibility(true, true);
+	else
+		OnEnable->SetVisibility(true, false);
 }
 
 void ACutyKillerCharacter::MoveForward(float Value)

@@ -42,6 +42,9 @@ public:
 		void BPInteract();
 
 	UFUNCTION(BlueprintImplementableEvent)
+		void BPPower();
+
+	UFUNCTION(BlueprintImplementableEvent)
 		void BPDead();
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -70,6 +73,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonOfHit, AActor* attacker);
+
+	UFUNCTION(BlueprintCallable)
+		void InitCamPostProcess(FPostProcessSettings good, FPostProcessSettings evil);
+
+	UFUNCTION(BlueprintCallable)
+		void SwitchLights(ULightComponent *OnEnable, ULightComponent *OnDisable);
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
@@ -139,6 +148,7 @@ protected:
 	void Attack();
 	void Drop();
 	void Interact();
+	void Power();
 	float CalcDamage(ObjAttack reasonOfHit);
 
 	// APawn interface
