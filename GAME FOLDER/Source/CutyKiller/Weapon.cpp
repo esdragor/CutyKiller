@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Core.h"
 #include "Weapon.h"
+#include "Core.h"
 #include <Net/UnrealNetwork.h>
 
 // Sets default values
