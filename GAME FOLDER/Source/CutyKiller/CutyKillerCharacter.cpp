@@ -182,7 +182,12 @@ void ACutyKillerCharacter::Interact()
 
 void ACutyKillerCharacter::Power()
 {
-	BPPower();
+	if (CanUsePower)
+	{
+		CanUsePower = false;
+		DelayCPPValue(CooldownUtilisationPower, CanUsePower, true);
+		BPPower();
+	}
 }
 
 
@@ -207,6 +212,26 @@ void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 {
 	roleofcharacter = _role;
 	BPPrintRolesOnScreen();
+}
+
+void ACutyKillerCharacter::AssignAnimal()
+{
+	CanUsePower = true;
+	switch (animal)
+	{
+	case AnimalNotAssigned:
+		break;
+	case Dog:
+		if (GetRoleParameters().typeOfRoles == Naughty)
+			CooldownUtilisationPower = 20.0f;
+		else
+			CooldownUtilisationPower = 120.0f;
+		break;
+	case Cat:
+		break;
+	default:
+		break;
+	}
 }
 
 void ACutyKillerCharacter::SetWeaponEquip(AWeapon* weap)

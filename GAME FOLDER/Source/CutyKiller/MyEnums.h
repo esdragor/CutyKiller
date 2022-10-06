@@ -25,6 +25,14 @@ enum RolesOfPlayer
 };
 
 UENUM(BlueprintType)
+enum AnimalOfPlayer
+{
+	AnimalNotAssigned     UMETA(DisplayName = "AnimalNotAssigned"),
+	Dog      UMETA(DisplayName = "Dog"),
+	Cat      UMETA(DisplayName = "Cat"),
+};
+
+UENUM(BlueprintType)
 enum RolesFunction
 {
 	FunctionNotAssigned     UMETA(DisplayName = "FunctionNotAssigned"),

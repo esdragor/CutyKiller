@@ -61,6 +61,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void AssignRole(RolesOfPlayer _role);
+	UFUNCTION(BlueprintCallable)
+		void AssignAnimal();
 
 	UFUNCTION(BlueprintCallable)
 		void SetWeaponEquip(AWeapon *weap);
@@ -98,6 +100,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		bool EnemyInFront = false;
 
+
 	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		float HealthValue = 100;
 
@@ -121,6 +124,13 @@ public:
 
 	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly)
 		AWeapon* WeaponEquipped;
+
+	UPROPERTY(EditAnywhere)
+		TEnumAsByte <AnimalOfPlayer> animal;
+
+	float CooldownUtilisationPower = 0.0f;
+
+	bool CanUsePower = false;
 
 protected:
 
