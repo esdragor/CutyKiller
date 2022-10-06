@@ -83,6 +83,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void SwitchLights(ULightComponent *OnEnable, ULightComponent *OnDisable);
 
+	UFUNCTION(BlueprintCallable)
+		AActor* FindClosestPlayer(TArray<AActor*>  players);
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
 
