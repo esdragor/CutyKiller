@@ -301,24 +301,6 @@ void ACutyKillerCharacter::SwitchLights(ULightComponent *OnEnable, ULightCompone
 		OnEnable->SetVisibility(true, false);
 }
 
-AActor *ACutyKillerCharacter::FindClosestPlayer(TArray<AActor *>  players)
-{
-	AActor* closest = nullptr;
-
-	if (players.Num() > 1)
-	{
-		for (size_t i = 0; i < players.Num(); i++)
-		{
-			if (players[i]->GetDistanceTo(this) > 50.0f)
-			{
-				if ((closest && this->GetDistanceTo(players[i]) > this->GetDistanceTo(closest)) || !closest)
-					closest = players[i];
-			}
-		}
-	}
-	return closest;
-}
-
 void ACutyKillerCharacter::MoveForward(float Value)
 {
 	if ((Controller != nullptr) && (Value != 0.0f) && !cantMove)
