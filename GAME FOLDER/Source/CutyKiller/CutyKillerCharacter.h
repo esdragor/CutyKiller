@@ -45,6 +45,9 @@ public:
 		void BPPower();
 
 	UFUNCTION(BlueprintImplementableEvent)
+		void BPPower2();
+
+	UFUNCTION(BlueprintImplementableEvent)
 		void BPDead();
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -65,9 +68,9 @@ public:
 		void AssignAnimal();
 
 	UFUNCTION(BlueprintCallable)
-		void SetWeaponEquip(AWeapon *weap);
+		void SetWeaponEquip(AWeapon* weap);
 
-		UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable)
 		void SetDeathStatus(bool _cantMove, bool _ISdead);
 
 	UFUNCTION(BlueprintCallable)
@@ -83,7 +86,7 @@ public:
 		void InitCamPostProcess(FPostProcessSettings good, FPostProcessSettings evil);
 
 	UFUNCTION(BlueprintCallable)
-		void SwitchLights(ULightComponent *OnEnable, ULightComponent *OnDisable);
+		void SwitchLights(ULightComponent* OnEnable, ULightComponent* OnDisable);
 
 	UFUNCTION(BlueprintCallable)
 		AActor* FindClosestPlayer(TArray<AActor*>  players);
@@ -91,13 +94,13 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 		TEnumAsByte<ObjAttack> CondDeath = ObjAttack::None;
 
-	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite)
 		bool isDead = false;
 
-	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite)
 		bool cantMove = true;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(BlueprintReadWrite)
 		bool EnemyInFront = false;
 
 
@@ -110,7 +113,7 @@ public:
 	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		float AttackValue = 40.f;
 
-	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadWrite)
 		bool Hit = false;
 
 	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = Input)
@@ -128,9 +131,13 @@ public:
 	UPROPERTY(EditAnywhere)
 		TEnumAsByte <AnimalOfPlayer> animal;
 
-	float CooldownUtilisationPower = 0.0f;
+	float CooldownUtilisationPower = 0.1f;
 
 	bool CanUsePower = false;
+
+	float CooldownUtilisationPower2 = 0.1f;
+
+	bool CanUsePower2 = false;
 
 protected:
 
@@ -165,6 +172,7 @@ protected:
 	void Drop();
 	void Interact();
 	void Power();
+	void Power2();
 	float CalcDamage(ObjAttack reasonOfHit);
 
 	// APawn interface

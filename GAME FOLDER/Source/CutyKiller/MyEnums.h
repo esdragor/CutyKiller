@@ -30,6 +30,7 @@ enum AnimalOfPlayer
 	AnimalNotAssigned     UMETA(DisplayName = "AnimalNotAssigned"),
 	Dog      UMETA(DisplayName = "Dog"),
 	Cat      UMETA(DisplayName = "Cat"),
+	Reindeer      UMETA(DisplayName = "Reindeer"),
 };
 
 UENUM(BlueprintType)

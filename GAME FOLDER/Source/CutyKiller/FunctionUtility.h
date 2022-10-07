@@ -8,6 +8,7 @@
 #define DelayCPPValue(delay, valueToChange, NewValue) 	FTimerHandle UnusedHandle; GetWorld()->GetTimerManager().SetTimer(UnusedHandle, [&]() { ((valueToChange) = (NewValue)); }, delay, false);
 #define DelayCPPFunction(delay, funcptr) 	FTimerHandle UnusedHandle; 	caller->GetWorld()->GetTimerManager().SetTimer(UnusedHandle, [&]() {funcptr();}, delay, false);
 #define PrintMessage(duration, color, msg) 	GEngine->AddOnScreenDebugMessage(-1, duration, color, msg);
+#define BoolToString(boolean) 	(boolean) ? "true" : "false"
 /**
  * 
  */

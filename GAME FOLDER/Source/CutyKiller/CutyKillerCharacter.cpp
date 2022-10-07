@@ -77,6 +77,7 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAction("Drop", IE_Released, this, &ACutyKillerCharacter::Drop);
 	PlayerInputComponent->BindAction("Interact", IE_Released, this, &ACutyKillerCharacter::Interact);
 	PlayerInputComponent->BindAction("Power", IE_Released, this, &ACutyKillerCharacter::Power);
+	PlayerInputComponent->BindAction("Power2", IE_Released, this, &ACutyKillerCharacter::Power2);
 
 	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &ACutyKillerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &ACutyKillerCharacter::MoveRight);
@@ -190,6 +191,16 @@ void ACutyKillerCharacter::Power()
 	}
 }
 
+void ACutyKillerCharacter::Power2()
+{
+	if (CanUsePower2)
+	{
+		CanUsePower2 = false;
+		DelayCPPValue(CooldownUtilisationPower2, CanUsePower2, true);
+		BPPower2();
+	}
+}
+
 
 void ACutyKillerCharacter::TurnAtRate(float Rate)
 {
@@ -217,6 +228,7 @@ void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 void ACutyKillerCharacter::AssignAnimal()
 {
 	CanUsePower = true;
+	CanUsePower2 = true;
 	switch (animal)
 	{
 	case AnimalNotAssigned:
@@ -228,6 +240,10 @@ void ACutyKillerCharacter::AssignAnimal()
 			CooldownUtilisationPower = 120.0f;
 		break;
 	case Cat:
+		break;
+	case Reindeer:
+			CooldownUtilisationPower = 30.0f;
+			CooldownUtilisationPower2 = 120.0f;
 		break;
 	default:
 		break;
