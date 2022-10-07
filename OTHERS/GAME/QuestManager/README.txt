@@ -1,4 +1,4 @@
-on cree un manager dans la scene qui a une array d'une UENUM Quest qui a :
+on cree un manager dans la scene qui a une array d'une strut Quest qui a :
 - une ID
 - un text descriptif
 -un nombre d'avancé
