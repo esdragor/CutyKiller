@@ -26,4 +26,7 @@ public:
 
 		UFUNCTION(BlueprintCallable)
 			bool ValidNbOfKiller(int NbPlayers, FText NbKiller);
+
+		UFUNCTION(BlueprintCallable)
+			FString ShowQuestDescription(FString description, int NbCurr, int NecessaryNb);
 };

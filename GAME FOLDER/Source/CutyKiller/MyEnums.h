@@ -54,6 +54,21 @@ struct FInfoRole
 		TEnumAsByte<RolesFunction> typeOfRoles;
 };
 
+USTRUCT(BlueprintType)
+struct FQuest
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Role of player")
+		int ID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color of role")
+		FString description;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Type Of Roles")
+		int CurrentNb;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Type Of Roles")
+		int NecessaryNb;
+};
+
 UCLASS()
 class CUTYKILLER_API UMyEnums : public UObject
 {

@@ -167,7 +167,7 @@ void ACutyKillerCharacter::Drop()
 void ACutyKillerCharacter::Interact()
 {
 
-	if (WeaponTmp)
+	if (WeaponTmp && !cantMove)
 	{
 		if (WeaponEquipped)
 		{
@@ -178,6 +178,24 @@ void ACutyKillerCharacter::Interact()
 		WeaponTmp = nullptr;
 		AttackValue += WeaponEquipped->AttackValue;
 		BPInteract();
+	}
+	else if (TriggeredID > -1 && !cantMove)
+	{
+		cantMove = true;
+		BPShowProgressQuest();
+
+		FTimerHandle UnusedHandle;
+		GetWorld()->GetTimerManager().SetTimer(UnusedHandle, [&]()
+			{
+				cantMove = false;
+
+				for (int i = 0; i < MyQuests.Num(); i++)
+				{
+					if (TriggeredID == MyQuests[i].ID)
+						UpdateQuest(i);
+				}
+			}
+		, TriggeredDuration, false);
 	}
 }
 
@@ -225,6 +243,26 @@ void ACutyKillerCharacter::AssignRole(RolesOfPlayer _role)
 	BPPrintRolesOnScreen();
 }
 
+void ACutyKillerCharacter::UpdateQuest(int index)
+{
+	if (MyQuests[index].NecessaryNb > 0)
+	{
+		MyQuests[index].CurrentNb++;
+		if (MyQuests[index].CurrentNb >= MyQuests[index].NecessaryNb)
+		{
+			MyQuests.RemoveAt(index);
+			BPUpdateQuest();
+		}
+		BPUpdateQuest();
+	}
+	else
+	{
+		MyQuests.RemoveAt(index);
+		BPUpdateQuest();
+	}
+	
+}
+
 void ACutyKillerCharacter::AssignAnimal()
 {
 	CanUsePower = true;
@@ -242,8 +280,8 @@ void ACutyKillerCharacter::AssignAnimal()
 	case Cat:
 		break;
 	case Reindeer:
-			CooldownUtilisationPower = 30.0f;
-			CooldownUtilisationPower2 = 120.0f;
+		CooldownUtilisationPower = 30.0f;
+		CooldownUtilisationPower2 = 120.0f;
 		break;
 	default:
 		break;
@@ -332,17 +370,17 @@ void ACutyKillerCharacter::InitCamPostProcess(FPostProcessSettings good, FPostPr
 	FollowCamera->PostProcessBlendWeight = 0.0f;
 }
 
-void ACutyKillerCharacter::SwitchLights(ULightComponent *OnEnable, ULightComponent *OnDisable)
+void ACutyKillerCharacter::SwitchLights(ULightComponent* OnEnable, ULightComponent* OnDisable)
 {
 	OnDisable->SetVisibility(false, true);
 
 	if (GetRoleParameters().typeOfRoles == Killer)
-	OnEnable->SetVisibility(true, true);
+		OnEnable->SetVisibility(true, true);
 	else
 		OnEnable->SetVisibility(true, false);
 }
 
-AActor *ACutyKillerCharacter::FindClosestPlayer(TArray<AActor *>  players)
+AActor* ACutyKillerCharacter::FindClosestPlayer(TArray<AActor*>  players)
 {
 	AActor* closest = nullptr;
 
