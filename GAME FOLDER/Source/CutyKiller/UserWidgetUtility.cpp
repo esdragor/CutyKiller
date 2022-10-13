@@ -37,3 +37,12 @@ bool UUserWidgetUtility::ValidNbOfKiller(int NbPlayers, FText NbKiller)
 	int nb = FCString::Atoi(*NbKiller.ToString());
 	return !(((NbPlayers <= nb || nb <= 0) && NbPlayers > 1) || (( nb > 1 || nb < 0) && NbPlayers == 1));
 }
+
+FString UUserWidgetUtility::ShowQuestDescription(FString description, int NbCurr, int NecessaryNb)
+{
+	if (NecessaryNb > 0)
+	{
+		return(description + " " + FString::FromInt(NbCurr) + "/" + FString::FromInt(NecessaryNb));
+	}
+	return description;
+}

@@ -27,7 +27,7 @@ public:
 	ACutyKillerCharacter();
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void BPShowWidgetEquip(bool showed);
+		void BPShowEquippedWidget(bool IsShow);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPDropItem();
@@ -52,6 +52,12 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPTakeHit();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPUpdateQuest();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BPShowProgressQuest();
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPPrintRolesOnScreen();
@@ -103,6 +109,11 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 		bool EnemyInFront = false;
 
+	UPROPERTY(BlueprintReadWrite)
+		float TriggeredDuration = 0.0f;
+
+	UPROPERTY(BlueprintReadWrite)
+		int TriggeredID = -1;
 
 	UPROPERTY(Replicated, BlueprintReadWrite, EditAnywhere)
 		float HealthValue = 100;
@@ -130,6 +141,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		TEnumAsByte <AnimalOfPlayer> animal;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		TArray<FQuest> MyQuests;
 
 	float CooldownUtilisationPower = 0.1f;
 
@@ -174,6 +188,7 @@ protected:
 	void Power();
 	void Power2();
 	float CalcDamage(ObjAttack reasonOfHit);
+	void UpdateQuest(int index);
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

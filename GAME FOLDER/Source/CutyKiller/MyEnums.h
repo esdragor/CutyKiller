@@ -54,6 +54,23 @@ struct FInfoRole
 		TEnumAsByte<RolesFunction> typeOfRoles;
 };
 
+USTRUCT(BlueprintType)
+struct FQuest
+{
+	GENERATED_BODY()
+
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ID of Quest")
+		int ID;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "description of Quest")
+		FString description;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "nb finish by player")
+		int CurrentNb;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Nb necessary to complete quest")
+		int NecessaryNb;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "delay to complete quest")
+		float Delay;
+};
+
 UCLASS()
 class CUTYKILLER_API UMyEnums : public UObject
 {
