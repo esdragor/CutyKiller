@@ -27,7 +27,7 @@ public:
 	ACutyKillerCharacter();
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void BPShowWidgetEquip(bool showed);
+		void BPShowEquippedWidget(bool IsShow);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPDropItem();

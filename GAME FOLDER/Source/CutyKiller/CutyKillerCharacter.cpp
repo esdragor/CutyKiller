@@ -54,7 +54,7 @@ ACutyKillerCharacter::ACutyKillerCharacter()
 
 	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
 	OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
-	OverlapBox->SetupAttachment(RootComponent, USpringArmComponent::SocketName);
+	OverlapBox->SetupAttachment(RootComponent);
 
 	OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapBegin);
 	OverlapBox->OnComponentEndOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapEnd);
@@ -104,7 +104,7 @@ void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 		if (tmp && !tmp->Equipped) // c'est une weapon
 		{
 			WeaponTmp = tmp;
-			BPShowWidgetEquip(true);
+			BPShowEquippedWidget(true);
 		}
 	}
 
@@ -117,8 +117,13 @@ void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AAc
 	if (IsLocallyControlled())
 	{
 		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
-		WeaponTmp = nullptr;
-		BPShowWidgetEquip(false);
+		AWeapon* tmp;
+		tmp = Cast<AWeapon>(OtherActor);
+		if (tmp && !tmp->Equipped) // c'est une weapon
+		{
+			WeaponTmp = nullptr;
+			BPShowEquippedWidget(false);
+		}
 	}
 }
 
