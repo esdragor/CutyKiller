@@ -279,7 +279,7 @@ void ACutyKillerCharacter::AssignAnimal()
 		if (GetRoleParameters().typeOfRoles == Naughty)
 			CooldownUtilisationPower = 20.0f;
 		else
- dur			CooldownUtilisationPower = 120.0f;
+			CooldownUtilisationPower = 120.0f;
 		break;
 	case Cat:
 		break;
