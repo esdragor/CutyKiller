@@ -46,3 +46,31 @@ FString UUserWidgetUtility::ShowQuestDescription(FString description, int NbCurr
 	}
 	return description;
 }
+
+bool UUserWidgetUtility::ManageCooldownQuest(float DT)
+{
+	if (QuestInCoolDown)
+	{
+		CurrentCoolDownQuest += DT;
+		if (CurrentCoolDownQuest >= TotalCoolDownQuest)
+		{
+			QuestInCoolDown = false;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool UUserWidgetUtility::ManageCooldownPower(float DT)
+{
+	if (PowerInCoolDown)
+	{
+		CurrentCoolDownPower -= DT;
+		if (CurrentCoolDownPower <= 0.0f)
+		{
+			PowerInCoolDown = false;
+			return true;
+		}
+	}
+	return false;
+}

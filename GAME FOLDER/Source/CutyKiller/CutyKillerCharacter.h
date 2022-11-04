@@ -42,10 +42,10 @@ public:
 		void BPInteract();
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void BPPower();
+		void BPPower(bool HaveCD, float Delay);
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void BPPower2();
+		void BPPower2(bool HaveCD, float Delay);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void BPDead();

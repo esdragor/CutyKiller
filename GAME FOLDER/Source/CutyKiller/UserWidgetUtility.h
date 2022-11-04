@@ -15,6 +15,22 @@ class CUTYKILLER_API UUserWidgetUtility : public UUserWidget
 	GENERATED_BODY()
 
 public:
+
+	UPROPERTY(BlueprintReadWrite)
+		bool QuestInCoolDown = false;
+
+	UPROPERTY(BlueprintReadWrite)
+		float TotalCoolDownQuest = false;
+
+	UPROPERTY(BlueprintReadWrite)
+		float CurrentCoolDownQuest = false;
+
+	UPROPERTY(BlueprintReadWrite)
+		bool PowerInCoolDown = false;
+
+	UPROPERTY(BlueprintReadWrite)
+		float CurrentCoolDownPower = false;
+
 		UFUNCTION(BlueprintCallable)
 		FString GenerateCodeParty();
 
@@ -29,4 +45,10 @@ public:
 
 		UFUNCTION(BlueprintCallable)
 			FString ShowQuestDescription(FString description, int NbCurr, int NecessaryNb);
+
+		UFUNCTION(BlueprintCallable)
+			bool ManageCooldownQuest(float DT);
+
+		UFUNCTION(BlueprintCallable)
+			bool ManageCooldownPower(float DT);
 };

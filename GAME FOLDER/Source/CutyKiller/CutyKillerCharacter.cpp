@@ -210,7 +210,7 @@ void ACutyKillerCharacter::Power()
 	{
 		CanUsePower = false;
 		DelayCPPValue(CooldownUtilisationPower, CanUsePower, true);
-		BPPower();
+		BPPower((CooldownUtilisationPower > 0.1f), CooldownUtilisationPower);
 	}
 }
 
@@ -220,7 +220,7 @@ void ACutyKillerCharacter::Power2()
 	{
 		CanUsePower2 = false;
 		DelayCPPValue(CooldownUtilisationPower2, CanUsePower2, true);
-		BPPower2();
+		BPPower2((CooldownUtilisationPower2 >= 0.0f), CooldownUtilisationPower2);
 	}
 }
 
@@ -271,7 +271,6 @@ void ACutyKillerCharacter::UpdateQuest(int index)
 void ACutyKillerCharacter::AssignAnimal()
 {
 	CanUsePower = true;
-	CanUsePower2 = true;
 	switch (animal)
 	{
 	case AnimalNotAssigned:
@@ -280,11 +279,12 @@ void ACutyKillerCharacter::AssignAnimal()
 		if (GetRoleParameters().typeOfRoles == Naughty)
 			CooldownUtilisationPower = 20.0f;
 		else
-			CooldownUtilisationPower = 120.0f;
+ dur			CooldownUtilisationPower = 120.0f;
 		break;
 	case Cat:
 		break;
 	case Reindeer:
+		CanUsePower2 = true;
 		CooldownUtilisationPower = 30.0f;
 		CooldownUtilisationPower2 = 120.0f;
 		break;
