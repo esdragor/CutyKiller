@@ -1,0 +1,18 @@
+
+GAME FOLDER/.vs/
+
+GAME FOLDER/Binaries/
+
+GAME FOLDER/Intermediate/
+
+GAME FOLDER/Saved/
+
+OTHERS/GAME/RebindingKeys/.vs/
+
+OTHERS/GAME/RebindingKeys/Binaries/
+
+OTHERS/GAME/RebindingKeys/Intermediate/
+
+OTHERS/GAME/RebindingKeys/Saved/
+
+*.sln
