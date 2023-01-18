@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/InputSettings.h"
+#include "Framework/Commands/InputChord.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidgetUtility.generated.h"
 
@@ -51,4 +53,7 @@ public:
 
 		UFUNCTION(BlueprintCallable)
 			bool ManageCooldownPower(float DT);
+
+
+
 };

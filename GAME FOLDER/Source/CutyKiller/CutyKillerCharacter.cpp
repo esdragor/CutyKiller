@@ -79,7 +79,7 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAction("Power", IE_Released, this, &ACutyKillerCharacter::Power);
 	PlayerInputComponent->BindAction("Power2", IE_Released, this, &ACutyKillerCharacter::Power2);
 
-	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &ACutyKillerCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveForward", this, &ACutyKillerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("Move Right / Left", this, &ACutyKillerCharacter::MoveRight);
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
