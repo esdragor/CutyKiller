@@ -42,14 +42,31 @@ enum RolesFunction
 };
 
 USTRUCT(BlueprintType)
+struct FOptionParameter
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
+		FName name;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
+		bool isAxis;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
+		bool IsSecondParameter;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
+		FName print;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
+		FKey defaultKey;
+};
+
+USTRUCT(BlueprintType)
 struct FInfoRole
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Role of player")
-	FString role;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Role of player")
+		FString role;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Color of role")
-	FColor color;
+		FColor color;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Type Of Roles")
 		TEnumAsByte<RolesFunction> typeOfRoles;
 };

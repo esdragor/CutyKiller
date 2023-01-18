@@ -35,7 +35,7 @@ void UUserWidgetUtility::LaunchAndSaveValueFromLobby(FText NbKiller, float Speed
 bool UUserWidgetUtility::ValidNbOfKiller(int NbPlayers, FText NbKiller)
 {
 	int nb = FCString::Atoi(*NbKiller.ToString());
-	return !(((NbPlayers <= nb || nb <= 0) && NbPlayers > 1) || (( nb > 1 || nb < 0) && NbPlayers == 1));
+	return !(((NbPlayers <= nb || nb <= 0) && NbPlayers > 1) || ((nb > 1 || nb < 0) && NbPlayers == 1));
 }
 
 FString UUserWidgetUtility::ShowQuestDescription(FString description, int NbCurr, int NecessaryNb)
@@ -74,3 +74,5 @@ bool UUserWidgetUtility::ManageCooldownPower(float DT)
 	}
 	return false;
 }
+
+
