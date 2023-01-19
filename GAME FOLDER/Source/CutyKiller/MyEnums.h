@@ -55,7 +55,7 @@ struct FOptionParameter
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
 		FName print;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "")
-		FKey defaultKey;
+		FInputChord defaultKey;
 };
 
 USTRUCT(BlueprintType)

@@ -54,8 +54,7 @@ void UOptions::ChangeAxisInput(FName name, FInputChord chord, bool IsSecondParam
 
 	MyInputSettings->GetAxisMappingByName(name, OutMappings);
 
-	FKey PositiveKey;
-	FKey NegativeKey;
+	if (OutMappings.Num() == 0) return;
 
 	// Assign each key to the correct direction
 	for (FInputAxisKeyMapping Keys : OutMappings)
