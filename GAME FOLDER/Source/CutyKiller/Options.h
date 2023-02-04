@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/InputSettings.h"
+#include "GameFramework/GameUserSettings.h"
 #include "Framework/Commands/InputChord.h"
 #include "MyEnums.h"
 #include "Blueprint/UserWidget.h"
@@ -19,6 +20,7 @@ class CUTYKILLER_API UOptions : public UUserWidget
 
 protected:
 	UInputSettings* MyInputSettings;
+	UGameUserSettings* MyGameUserSettings;
 
 protected:
 	UFUNCTION(BlueprintCallable)
@@ -35,4 +37,12 @@ protected:
 		void InitKeys(TArray<FOptionParameter> options);
 	UFUNCTION(BlueprintImplementableEvent)
 		void InitKey(FOptionParameter option);
+	UFUNCTION(BlueprintCallable)
+		void InitGraphicsSettings();
+	UFUNCTION(BlueprintImplementableEvent)
+		void InitGraphicsOptionUI();
+	UFUNCTION(BlueprintCallable)
+		void ChangeWindowedMode(FString mode);
+	UFUNCTION(BlueprintCallable)
+		void ChangeScreenResolution(FString mode);
 };

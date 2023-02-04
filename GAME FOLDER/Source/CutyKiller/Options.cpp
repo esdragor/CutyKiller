@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Kismet/KismetStringLibrary.h"
 #include "Options.h"
 
 void UOptions::InitInputList()
@@ -76,4 +76,32 @@ void UOptions::InitKeys(TArray<FOptionParameter> options)
 	{
 		InitKey(options[i]);
 	}
+}
+
+void UOptions::InitGraphicsSettings()
+{
+	MyGameUserSettings = GEngine->GameUserSettings;
+	InitGraphicsOptionUI();
+}
+
+void UOptions::ChangeWindowedMode(FString mode)
+{
+	if (mode == "Fullscreen")
+		MyGameUserSettings->SetFullscreenMode(EWindowMode::Fullscreen);
+	else if (mode == "Windowed Fullscreen")
+		MyGameUserSettings->SetFullscreenMode(EWindowMode::WindowedFullscreen);
+	else
+		MyGameUserSettings->SetFullscreenMode(EWindowMode::Windowed);
+}
+
+void UOptions::ChangeScreenResolution(FString Resolution)
+{
+	FIntPoint newRes;
+
+	int32 indexX = Resolution.Find(TEXT("x"), ESearchCase::IgnoreCase, ESearchDir::Type::FromStart, 0);
+
+
+	newRes.X = UKismetStringLibrary::Conv_StringToInt(Resolution.Mid(0, indexX - 1));
+	newRes.Y = UKismetStringLibrary::Conv_StringToInt(Resolution.Mid(indexX + 1, Resolution.Len() - indexX));
+	MyGameUserSettings->SetScreenResolution(newRes);
 }
