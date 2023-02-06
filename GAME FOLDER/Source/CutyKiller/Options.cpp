@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Kismet/KismetStringLibrary.h"
 #include "Options.h"
+#include "Kismet/KismetStringLibrary.h"
 
 void UOptions::InitInputList()
 {
@@ -104,4 +104,9 @@ void UOptions::ChangeScreenResolution(FString Resolution)
 	newRes.X = UKismetStringLibrary::Conv_StringToInt(Resolution.Mid(0, indexX - 1));
 	newRes.Y = UKismetStringLibrary::Conv_StringToInt(Resolution.Mid(indexX + 1, Resolution.Len() - indexX));
 	MyGameUserSettings->SetScreenResolution(newRes);
+}
+
+void UOptions::ApplyResolutionSettings()
+{
+	MyGameUserSettings->ApplyResolutionSettings(false);
 }

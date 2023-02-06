@@ -45,4 +45,6 @@ protected:
 		void ChangeWindowedMode(FString mode);
 	UFUNCTION(BlueprintCallable)
 		void ChangeScreenResolution(FString mode);
+	UFUNCTION(BlueprintCallable)
+		void ApplyResolutionSettings();
 };
