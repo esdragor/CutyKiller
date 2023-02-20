@@ -10,9 +10,22 @@
 #include "Blueprint/UserWidget.h"
 #include "Options.generated.h"
 
-/**
- * 
- */
+
+USTRUCT(BlueprintType)
+struct FOptionsGraphics
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly)
+		FString ScreenMode = "Windowed";
+	UPROPERTY(BlueprintReadOnly)
+		int32 WindowResolutionX = 1920;
+	UPROPERTY(BlueprintReadOnly)
+		int32 WindowResolutionY = 1080;
+
+};
+
 UCLASS()
 class CUTYKILLER_API UOptions : public UUserWidget
 {
@@ -21,8 +34,17 @@ class CUTYKILLER_API UOptions : public UUserWidget
 protected:
 	UInputSettings* MyInputSettings;
 	UGameUserSettings* MyGameUserSettings;
+	UPROPERTY(BlueprintReadWrite)
+		float timer = -1;
+	UPROPERTY(BlueprintReadOnly)
+	FOptionsGraphics saveData;
+
+private:
+	EWindowMode::Type prevMode;
+	FIntPoint prevResolution;
 
 protected:
+	~UOptions();
 	UFUNCTION(BlueprintCallable)
 		void InitInputList();
 	UFUNCTION(BlueprintCallable)
@@ -46,5 +68,12 @@ protected:
 	UFUNCTION(BlueprintCallable)
 		void ChangeScreenResolution(FString mode);
 	UFUNCTION(BlueprintCallable)
-		void ApplyResolutionSettings();
+		void ApplySettings();
+	UFUNCTION(BlueprintImplementableEvent)
+		void ConfirmNewResolution();
+
+private:
+	void ChangeResOrWindows();
+	void Save();
+	void Load();
 };

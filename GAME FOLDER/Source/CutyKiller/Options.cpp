@@ -2,6 +2,12 @@
 
 #include "Options.h"
 #include "Kismet/KismetStringLibrary.h"
+#include "JsonObjectConverter.h"
+
+UOptions::~UOptions()
+{
+	Save();
+}
 
 void UOptions::InitInputList()
 {
@@ -81,17 +87,31 @@ void UOptions::InitKeys(TArray<FOptionParameter> options)
 void UOptions::InitGraphicsSettings()
 {
 	MyGameUserSettings = GEngine->GameUserSettings;
+
+	if (FPaths::FileExists(FPaths::ProjectContentDir() + TEXT("/Save.json")))
+	{
+		Load();
+	}
+	else
+	{
+		Save();
+	}
+
 	InitGraphicsOptionUI();
 }
 
 void UOptions::ChangeWindowedMode(FString mode)
 {
+	prevMode = MyGameUserSettings->GetFullscreenMode();
+
 	if (mode == "Fullscreen")
 		MyGameUserSettings->SetFullscreenMode(EWindowMode::Fullscreen);
 	else if (mode == "Windowed Fullscreen")
 		MyGameUserSettings->SetFullscreenMode(EWindowMode::WindowedFullscreen);
 	else
 		MyGameUserSettings->SetFullscreenMode(EWindowMode::Windowed);
+	saveData.ScreenMode = mode;
+	ChangeResOrWindows();
 }
 
 void UOptions::ChangeScreenResolution(FString Resolution)
@@ -100,13 +120,61 @@ void UOptions::ChangeScreenResolution(FString Resolution)
 
 	int32 indexX = Resolution.Find(TEXT("x"), ESearchCase::IgnoreCase, ESearchDir::Type::FromStart, 0);
 
-
 	newRes.X = UKismetStringLibrary::Conv_StringToInt(Resolution.Mid(0, indexX - 1));
 	newRes.Y = UKismetStringLibrary::Conv_StringToInt(Resolution.Mid(indexX + 1, Resolution.Len() - indexX));
+
+	prevResolution = MyGameUserSettings->GetScreenResolution();
+
+	saveData.WindowResolutionX = newRes.X;
+	saveData.WindowResolutionY = newRes.Y;
 	MyGameUserSettings->SetScreenResolution(newRes);
+	ChangeResOrWindows();
 }
 
-void UOptions::ApplyResolutionSettings()
+void UOptions::ApplySettings()
+{
+	//saveData.prevMode = prevMode;
+	//saveData.prevResolution = prevResolution;
+
+	Save();
+}
+
+void UOptions::ChangeResOrWindows()
 {
 	MyGameUserSettings->ApplyResolutionSettings(false);
+	ConfirmNewResolution();
+	timer = 10;
+}
+
+void UOptions::Save()
+{
+	FString buffer;
+
+
+	FJsonObjectConverter::UStructToJsonObjectString(saveData, buffer);
+	FFileHelper::SaveStringToFile(*buffer, *(FPaths::ProjectContentDir() + TEXT("/Save.json")));
+}
+
+void UOptions::Load()
+{
+	FString buffer;
+
+	FFileHelper::LoadFileToString(buffer, *(FPaths::ProjectContentDir() + TEXT("/Save.json")));
+	
+	TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(buffer);
+	TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+
+	if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+	{
+		saveData.ScreenMode = JsonObject->GetStringField(TEXT("ScreenMode"));
+		saveData.WindowResolutionX = JsonObject->GetIntegerField(TEXT("windowResolutionX"));
+		saveData.WindowResolutionY = JsonObject->GetIntegerField(TEXT("windowResolutionY"));
+	}
+
+	ChangeWindowedMode(saveData.ScreenMode);
+	FString Resolution = "";
+	Resolution.AppendInt(saveData.WindowResolutionX);
+	Resolution.Append(" x ");
+	Resolution.AppendInt(saveData.WindowResolutionY);
+	ChangeScreenResolution(Resolution);
 }
