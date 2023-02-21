@@ -110,7 +110,7 @@ void UOptions::ChangeWindowedMode(FString mode)
 		MyGameUserSettings->SetFullscreenMode(EWindowMode::WindowedFullscreen);
 	else
 		MyGameUserSettings->SetFullscreenMode(EWindowMode::Windowed);
-	saveData.ScreenMode = mode;
+	saveData.ResWinOptions.ScreenMode = mode;
 	ChangeResOrWindows();
 }
 
@@ -125,8 +125,8 @@ void UOptions::ChangeScreenResolution(FString Resolution)
 
 	prevResolution = MyGameUserSettings->GetScreenResolution();
 
-	saveData.WindowResolutionX = newRes.X;
-	saveData.WindowResolutionY = newRes.Y;
+	saveData.ResWinOptions.WindowResolutionX = newRes.X;
+	saveData.ResWinOptions.WindowResolutionY = newRes.Y;
 	MyGameUserSettings->SetScreenResolution(newRes);
 	ChangeResOrWindows();
 }
@@ -161,20 +161,35 @@ void UOptions::Load()
 
 	FFileHelper::LoadFileToString(buffer, *(FPaths::ProjectContentDir() + TEXT("/Save.json")));
 	
-	TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(buffer);
-	TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
 
-	if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-	{
-		saveData.ScreenMode = JsonObject->GetStringField(TEXT("ScreenMode"));
-		saveData.WindowResolutionX = JsonObject->GetIntegerField(TEXT("windowResolutionX"));
-		saveData.WindowResolutionY = JsonObject->GetIntegerField(TEXT("windowResolutionY"));
-	}
 
-	ChangeWindowedMode(saveData.ScreenMode);
+
+	FOptionsGraphics JsonData;
+	FJsonObjectConverter::JsonObjectStringToUStruct<FOptionsGraphics>(
+		buffer,
+		&JsonData,
+		0, 0);
+
+
+
+	return;
+	//TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(buffer);
+	//TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+
+	//if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+	//{
+	//		FResWindowStruct ResWinOptions = JsonObject->GetArrayField("")
+	//		FGraphicsSetings GraphicsSetings;
+
+	//		ResWinOptions.ScreenMode = JsonObject->GetStringField(TEXT("ScreenMode"));
+	//		ResWinOptions.WindowResolutionX = JsonObject->GetIntegerField(TEXT("windowResolutionX"));
+	//		ResWinOptions.WindowResolutionY = JsonObject->GetIntegerField(TEXT("windowResolutionY"));
+	//}
+
+	ChangeWindowedMode(saveData.ResWinOptions.ScreenMode);
 	FString Resolution = "";
-	Resolution.AppendInt(saveData.WindowResolutionX);
+	Resolution.AppendInt(saveData.ResWinOptions.WindowResolutionX);
 	Resolution.Append(" x ");
-	Resolution.AppendInt(saveData.WindowResolutionY);
+	Resolution.AppendInt(saveData.ResWinOptions.WindowResolutionY);
 	ChangeScreenResolution(Resolution);
 }

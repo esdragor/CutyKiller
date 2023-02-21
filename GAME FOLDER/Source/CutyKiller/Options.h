@@ -10,9 +10,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Options.generated.h"
 
-
 USTRUCT(BlueprintType)
-struct FOptionsGraphics
+struct FResWindowStruct
 {
 	GENERATED_USTRUCT_BODY()
 
@@ -23,6 +22,30 @@ public:
 		int32 WindowResolutionX = 1920;
 	UPROPERTY(BlueprintReadOnly)
 		int32 WindowResolutionY = 1080;
+
+};
+
+USTRUCT(BlueprintType)
+struct FGraphicsSetings
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly)
+		FString VerticalSync = "Windowed";
+
+};
+
+USTRUCT(BlueprintType)
+struct FOptionsGraphics
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+	UPROPERTY(BlueprintReadOnly)
+		FResWindowStruct ResWinOptions;
+	UPROPERTY(BlueprintReadOnly)
+		FGraphicsSetings GraphicsSetings;
 
 };
 
