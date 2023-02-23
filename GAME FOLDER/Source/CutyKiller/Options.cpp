@@ -100,7 +100,7 @@ void UOptions::InitGraphicsSettings()
 	InitGraphicsOptionUI();
 }
 
-void UOptions::ChangeWindowedMode(FString mode)
+void UOptions::ChangeWindowedMode(FString mode, bool needConfirmation)
 {
 	prevMode = MyGameUserSettings->GetFullscreenMode();
 
@@ -111,10 +111,18 @@ void UOptions::ChangeWindowedMode(FString mode)
 	else
 		MyGameUserSettings->SetFullscreenMode(EWindowMode::Windowed);
 	saveData.ResWinOptions.ScreenMode = mode;
-	ChangeResOrWindows();
+	ChangeResOrWindows(needConfirmation);
 }
 
-void UOptions::ChangeScreenResolution(FString Resolution)
+void UOptions::ChangeWindowedMode(EWindowMode::Type mode, bool needConfirmation)
+{
+	prevMode = MyGameUserSettings->GetFullscreenMode();
+
+	MyGameUserSettings->SetFullscreenMode(mode);
+	ChangeResOrWindows(needConfirmation);
+}
+
+void UOptions::ChangeScreenResolution(FString Resolution, bool needConfirmation)
 {
 	FIntPoint newRes;
 
@@ -128,20 +136,62 @@ void UOptions::ChangeScreenResolution(FString Resolution)
 	saveData.ResWinOptions.WindowResolutionX = newRes.X;
 	saveData.ResWinOptions.WindowResolutionY = newRes.Y;
 	MyGameUserSettings->SetScreenResolution(newRes);
-	ChangeResOrWindows();
+	ChangeResOrWindows(needConfirmation);
+}
+
+void UOptions::ChangeScreenResolution(FIntPoint newRes, bool needConfirmation)
+{
+	prevResolution = MyGameUserSettings->GetScreenResolution();
+
+	saveData.ResWinOptions.WindowResolutionX = newRes.X;
+	saveData.ResWinOptions.WindowResolutionY = newRes.Y;
+	MyGameUserSettings->SetScreenResolution(newRes);
+	ChangeResOrWindows(needConfirmation);
 }
 
 void UOptions::ApplySettings()
 {
-	//saveData.prevMode = prevMode;
-	//saveData.prevResolution = prevResolution;
+	while (stackVectorGraph.size() > 0)
+	{
+		(this->*stackVectorGraph.back())();
+		stackVectorGraph.pop_back();
+	}
 
-	Save();
+	MyGameUserSettings->ValidateSettings();
+	MyGameUserSettings->ApplySettings(false);
+	//Save();
 }
 
-void UOptions::ChangeResOrWindows()
+void UOptions::ResetToPreviousWinModeResSettings()
+{
+
+	ChangeWindowedMode(prevMode, false);
+	ChangeScreenResolution(prevResolution, false);
+	timer = -1;
+}
+
+void UOptions::ResetGraphicsSettings()
+{
+	// ADD HERE le reset de toutes le valeurs graphics de base
+}
+
+void UOptions::AddVerticalSyncToApply(bool Vsync)
+{
+	saveData.GraphicsSettings.VSync = Vsync;
+	stackVectorGraph.push_back(&UOptions::SetVSync);
+}
+
+void UOptions::AddViewDistanceToApply(int32 viewDistance)
+{
+	saveData.GraphicsSettings.viewDistance = viewDistance;
+	stackVectorGraph.push_back(&UOptions::SetViewDistance);
+}
+
+
+void UOptions::ChangeResOrWindows(bool needConfirmation)
 {
 	MyGameUserSettings->ApplyResolutionSettings(false);
+	if (!needConfirmation || bypass) return;
 	ConfirmNewResolution();
 	timer = 10;
 }
@@ -151,7 +201,7 @@ void UOptions::Save()
 	FString buffer;
 
 
-	FJsonObjectConverter::UStructToJsonObjectString(saveData, buffer);
+	FJsonObjectConverter::UStructToJsonObjectString(saveData.ResWinOptions, buffer);
 	FFileHelper::SaveStringToFile(*buffer, *(FPaths::ProjectContentDir() + TEXT("/Save.json")));
 }
 
@@ -160,36 +210,36 @@ void UOptions::Load()
 	FString buffer;
 
 	FFileHelper::LoadFileToString(buffer, *(FPaths::ProjectContentDir() + TEXT("/Save.json")));
-	
 
-
-
-	FOptionsGraphics JsonData;
-	FJsonObjectConverter::JsonObjectStringToUStruct<FOptionsGraphics>(
+	FResWindowStruct JsonData;
+	FJsonObjectConverter::JsonObjectStringToUStruct<FResWindowStruct>(
 		buffer,
 		&JsonData,
 		0, 0);
 
+	saveData.ResWinOptions.ScreenMode = JsonData.ScreenMode;
+	saveData.ResWinOptions.WindowResolutionX = JsonData.WindowResolutionX;
+	saveData.ResWinOptions.WindowResolutionY = JsonData.WindowResolutionY;
 
-
-	return;
-	//TSharedRef<TJsonReader<TCHAR>> JsonReader = TJsonReaderFactory<TCHAR>::Create(buffer);
-	//TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-
-	//if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
-	//{
-	//		FResWindowStruct ResWinOptions = JsonObject->GetArrayField("")
-	//		FGraphicsSetings GraphicsSetings;
-
-	//		ResWinOptions.ScreenMode = JsonObject->GetStringField(TEXT("ScreenMode"));
-	//		ResWinOptions.WindowResolutionX = JsonObject->GetIntegerField(TEXT("windowResolutionX"));
-	//		ResWinOptions.WindowResolutionY = JsonObject->GetIntegerField(TEXT("windowResolutionY"));
-	//}
-
-	ChangeWindowedMode(saveData.ResWinOptions.ScreenMode);
+	ChangeWindowedMode(saveData.ResWinOptions.ScreenMode, false);
 	FString Resolution = "";
 	Resolution.AppendInt(saveData.ResWinOptions.WindowResolutionX);
 	Resolution.Append(" x ");
 	Resolution.AppendInt(saveData.ResWinOptions.WindowResolutionY);
-	ChangeScreenResolution(Resolution);
+	ChangeScreenResolution(Resolution, false);
+
+	MyGameUserSettings->LoadSettings();
+	saveData.GraphicsSettings.VSync = MyGameUserSettings->bUseVSync;
+	saveData.GraphicsSettings.viewDistance = MyGameUserSettings->GetViewDistanceQuality();
+
+}
+
+void UOptions::SetVSync()
+{
+	MyGameUserSettings->bUseVSync = saveData.GraphicsSettings.VSync;
+}
+
+void UOptions::SetViewDistance()
+{
+	MyGameUserSettings->SetViewDistanceQuality(saveData.GraphicsSettings.viewDistance);
 }

@@ -1,12 +1,5 @@
 {
-	"resWinOptions":
-	{
-		"screenMode": "Windowed",
-		"windowResolutionX": 1920,
-		"windowResolutionY": 1080
-	},
-	"graphicsSetings":
-	{
-		"verticalSync": "Windowed"
-	}
+	"screenMode": "Windowed",
+	"windowResolutionX": 1920,
+	"windowResolutionY": 1080
 }

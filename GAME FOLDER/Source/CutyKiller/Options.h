@@ -32,8 +32,9 @@ struct FGraphicsSetings
 
 public:
 	UPROPERTY(BlueprintReadOnly)
-		FString VerticalSync = "Windowed";
-
+		bool VSync = false;
+	UPROPERTY(BlueprintReadOnly)
+		int32 viewDistance = false;
 };
 
 USTRUCT(BlueprintType)
@@ -45,7 +46,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		FResWindowStruct ResWinOptions;
 	UPROPERTY(BlueprintReadOnly)
-		FGraphicsSetings GraphicsSetings;
+		FGraphicsSetings GraphicsSettings;
 
 };
 
@@ -59,12 +60,18 @@ protected:
 	UGameUserSettings* MyGameUserSettings;
 	UPROPERTY(BlueprintReadWrite)
 		float timer = -1;
+	UPROPERTY(BlueprintReadWrite)
+		bool bypass = true;
 	UPROPERTY(BlueprintReadOnly)
 	FOptionsGraphics saveData;
 
 private:
 	EWindowMode::Type prevMode;
 	FIntPoint prevResolution;
+
+	std::vector<void (UOptions::*) ()> stackVectorGraph;
+
+
 
 protected:
 	~UOptions();
@@ -87,16 +94,31 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 		void InitGraphicsOptionUI();
 	UFUNCTION(BlueprintCallable)
-		void ChangeWindowedMode(FString mode);
+		void ChangeWindowedMode(FString mode, bool needConfirmation);
 	UFUNCTION(BlueprintCallable)
-		void ChangeScreenResolution(FString mode);
+		void ChangeScreenResolution(FString mode, bool needConfirmation);
 	UFUNCTION(BlueprintCallable)
 		void ApplySettings();
+	UFUNCTION(BlueprintCallable)
+		void ResetToPreviousWinModeResSettings();
+	UFUNCTION(BlueprintCallable)
+		void ResetGraphicsSettings();
+	UFUNCTION(BlueprintCallable)
+		void AddVerticalSyncToApply(bool Vsync);
+	UFUNCTION(BlueprintCallable)
+		void AddViewDistanceToApply(int32 viewDistance);
 	UFUNCTION(BlueprintImplementableEvent)
 		void ConfirmNewResolution();
 
+	void ChangeWindowedMode(EWindowMode::Type mode, bool needConfirmation);
+	void ChangeScreenResolution(FIntPoint newRes, bool needConfirmation);
+
+	void SetVSync();
+	void SetViewDistance();
+
+
 private:
-	void ChangeResOrWindows();
+	void ChangeResOrWindows(bool needConfirmation);
 	void Save();
 	void Load();
 };
