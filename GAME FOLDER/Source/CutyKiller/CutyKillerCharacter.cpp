@@ -103,6 +103,7 @@ void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 		tmp = Cast<AWeapon>(OtherActor);
 		if (tmp && !tmp->Equipped) // c'est une weapon
 		{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
 			WeaponTmp = tmp;
 			BPShowEquippedWidget(true);
 		}
@@ -119,8 +120,9 @@ void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AAc
 		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
 		AWeapon* tmp;
 		tmp = Cast<AWeapon>(OtherActor);
-		if (tmp && !tmp->Equipped) // c'est une weapon
+		if (tmp && tmp->Equipped) // c'est une weapon
 		{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
 			WeaponTmp = nullptr;
 			BPShowEquippedWidget(false);
 		}
@@ -356,7 +358,7 @@ void ACutyKillerCharacter::TakeAhit(float damage, TEnumAsByte<ObjAttack> reasonO
 		}
 		else
 		{
-			if (FVector::DotProduct(attacker->GetActorLocation(), GetActorLocation()) >= 0.0f)
+			if (attacker && FVector::DotProduct(attacker->GetActorLocation(), GetActorLocation()) >= 0.0f)
 				EnemyInFront = true;
 			else
 				EnemyInFront = false;
