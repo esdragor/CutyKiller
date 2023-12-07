@@ -197,8 +197,8 @@ public:
 	/** Needed for TMap::GetTypeHash() */
 	friend uint32 GetTypeHash(const FUniqueNetIdSteam2& A)
 	{
-		return GetTypeHash(A.UniqueNetId);
-		//return (uint32)(A.UniqueNetId) + ((uint32)((A.UniqueNetId) >> 32) * 23);
+		//return GetTypeHash(A.UniqueNetId);
+		return (uint32)(A.UniqueNetId) + ((uint32)((A.UniqueNetId) >> 32) * 23);
 	}
 
 	/** Convenience cast to CSteamID */
