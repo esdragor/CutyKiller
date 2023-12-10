@@ -14,12 +14,13 @@ AWeapon::AWeapon()
 	bReplicates = true;
 
 	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
-	OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
+	OverlapBox->SetBoxExtent(FVector(100.f, 35.f, 24.f));
 	OverlapBox->SetupAttachment(RootComponent);
 
 	OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::OnOverlapBegin);
 	OverlapBox->OnComponentEndOverlap.AddDynamic(this, &AWeapon::OnOverlapEnd);
 	OverlapBox->SetCollisionProfileName("OverlapAll");
+	OverlapBox->SetCollisionObjectType(ECC_GameTraceChannel1);
 }
 
 // Called when the game starts or when spawned

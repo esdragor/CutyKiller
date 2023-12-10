@@ -52,12 +52,12 @@ ACutyKillerCharacter::ACutyKillerCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 
-	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
-	OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
-	OverlapBox->SetupAttachment(RootComponent);
-
-	OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapBegin);
-	OverlapBox->OnComponentEndOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapEnd);
+	// OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
+	// OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
+	// OverlapBox->SetupAttachment(RootComponent);
+	//
+	// OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapBegin);
+	// OverlapBox->OnComponentEndOverlap.AddDynamic(this, &ACutyKillerCharacter::OnOverlapEnd);
 
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
@@ -95,39 +95,39 @@ void ACutyKillerCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindTouch(IE_Released, this, &ACutyKillerCharacter::TouchStopped);
 }
 
-void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	if (IsLocallyControlled())
-	{
-		AWeapon* tmp;
-		tmp = Cast<AWeapon>(OtherActor);
-		if (tmp && !tmp->Equipped) // c'est une weapon
-		{
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
-			WeaponTmp = tmp;
-			BPShowEquippedWidget(true);
-		}
-	}
-
-	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Overlapped");
-
-}
-
-void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	if (IsLocallyControlled())
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
-		AWeapon* tmp;
-		tmp = Cast<AWeapon>(OtherActor);
-		if (tmp && tmp->Equipped) // c'est une weapon
-		{
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
-			WeaponTmp = nullptr;
-			BPShowEquippedWidget(false);
-		}
-	}
-}
+// void ACutyKillerCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+// {
+// 	if (IsLocallyControlled())
+// 	{
+// 		AWeapon* tmp;
+// 		tmp = Cast<AWeapon>(OtherActor);
+// 		if (tmp && !tmp->Equipped) // c'est une weapon
+// 		{
+// 		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
+// 			WeaponTmp = tmp;
+// 			BPShowEquippedWidget(true);
+// 		}
+// 	}
+//
+// 	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Overlapped");
+//
+// }
+//
+// void ACutyKillerCharacter::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+// {
+// 	if (IsLocallyControlled())
+// 	{
+// 		//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
+// 		AWeapon* tmp;
+// 		tmp = Cast<AWeapon>(OtherActor);
+// 		if (tmp && tmp->Equipped) // c'est une weapon
+// 		{
+// 		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
+// 			WeaponTmp = nullptr;
+// 			BPShowEquippedWidget(false);
+// 		}
+// 	}
+// }
 
 void ACutyKillerCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
