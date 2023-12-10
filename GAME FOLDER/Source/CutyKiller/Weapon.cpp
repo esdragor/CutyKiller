@@ -4,13 +4,22 @@
 #include "Core.h"
 #include <Net/UnrealNetwork.h>
 
+#include "CutyKillerCharacter.h"
+
 // Sets default values
 AWeapon::AWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
 
+	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
+	OverlapBox->SetBoxExtent(FVector(50.f, 50.f, 90.f));
+	OverlapBox->SetupAttachment(RootComponent);
+
+	OverlapBox->OnComponentBeginOverlap.AddDynamic(this, &AWeapon::OnOverlapBegin);
+	OverlapBox->OnComponentEndOverlap.AddDynamic(this, &AWeapon::OnOverlapEnd);
+	OverlapBox->SetCollisionProfileName("OverlapAll");
 }
 
 // Called when the game starts or when spawned
@@ -24,14 +33,42 @@ void AWeapon::BeginPlay()
 void AWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
-void AWeapon::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const {
-
+void AWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AWeapon, Equipped);
-
 }
 
+void AWeapon::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+                             int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ACutyKillerCharacter* tmp;
+	tmp = Cast<ACutyKillerCharacter>(OtherActor);
+	if (!tmp) return;
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "begin overlapped with : " + OtherActor->GetName());
+	// if (tmp && !tmp->Equipped) // c'est une weapon
+	// {
+	// 	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
+	// 	WeaponTmp = tmp;
+	// 	BPShowEquippedWidget(true);
+	// }
+}
+
+void AWeapon::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+                           int32 OtherBodyIndex)
+{
+	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
+	ACutyKillerCharacter* tmp;
+	tmp = Cast<ACutyKillerCharacter>(OtherActor);
+	if (!tmp) return;
+	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "finish overlapped with : " + OtherActor->GetName());
+	// if (tmp && tmp->Equipped) // c'est une weapon
+	// {
+	// 	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
+	// 	WeaponTmp = nullptr;
+	// 	BPShowEquippedWidget(false);
+	// }
+}
