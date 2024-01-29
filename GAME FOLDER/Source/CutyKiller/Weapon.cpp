@@ -62,7 +62,7 @@ void AWeapon::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 	ACutyKillerCharacter* tmp;
 	tmp = Cast<ACutyKillerCharacter>(OtherActor);
 	if (!tmp) return;
-	if (tmp && Equipped)
+	if (tmp && Equipped) // c'est une weapon
 	{
 		tmp->WeaponTmp = nullptr;
 		tmp->BPShowEquippedWidget(false);

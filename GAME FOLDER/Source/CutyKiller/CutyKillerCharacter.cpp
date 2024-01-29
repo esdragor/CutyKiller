@@ -174,7 +174,7 @@ void ACutyKillerCharacter::Drop()
 void ACutyKillerCharacter::Interact()
 {
 
-	if (WeaponTmp && !cantMove)
+	if (WeaponTmp && !cantMove) // weapon
 	{
 		if (WeaponEquipped)
 		{
@@ -186,7 +186,7 @@ void ACutyKillerCharacter::Interact()
 		AttackValue += WeaponEquipped->AttackValue;
 		BPInteract();
 	}
-	else if (TriggeredID > -1 && !cantMove)
+	else if (TriggeredID > -1 && !cantMove) // quest
 	{
 		cantMove = true;
 		BPShowProgressQuest();
@@ -199,7 +199,10 @@ void ACutyKillerCharacter::Interact()
 				for (int i = 0; i < MyQuests.Num(); i++)
 				{
 					if (TriggeredID == MyQuests[i].ID)
+					{
 						UpdateQuest(i);
+						break;
+					}
 				}
 			}
 		, TriggeredDuration, false);
