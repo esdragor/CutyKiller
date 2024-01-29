@@ -27,7 +27,7 @@ AWeapon::AWeapon()
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	status = ObjAttack::None;
+	status = None;
 }
 
 // Called every frame
@@ -49,27 +49,22 @@ void AWeapon::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 	ACutyKillerCharacter* tmp;
 	tmp = Cast<ACutyKillerCharacter>(OtherActor);
 	if (!tmp) return;
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "begin overlapped with : " + OtherActor->GetName());
-	// if (tmp && !tmp->Equipped) // c'est une weapon
-	// {
-	// 	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
-	// 	WeaponTmp = tmp;
-	// 	BPShowEquippedWidget(true);
-	// }
+	if (tmp && !Equipped)
+	{
+		tmp->WeaponTmp = this;
+		tmp->BPShowEquippedWidget(true);
+	}
 }
 
 void AWeapon::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
                            int32 OtherBodyIndex)
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Finish Overlapped");
 	ACutyKillerCharacter* tmp;
 	tmp = Cast<ACutyKillerCharacter>(OtherActor);
 	if (!tmp) return;
-	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "finish overlapped with : " + OtherActor->GetName());
-	// if (tmp && tmp->Equipped) // c'est une weapon
-	// {
-	// 	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, "Is equipped : " + (tmp->Equipped) ? "true" : "false");
-	// 	WeaponTmp = nullptr;
-	// 	BPShowEquippedWidget(false);
-	// }
+	if (tmp && Equipped)
+	{
+		tmp->WeaponTmp = nullptr;
+		tmp->BPShowEquippedWidget(false);
+	}
 }
